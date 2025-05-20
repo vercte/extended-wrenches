@@ -10,6 +10,6 @@ public class ExtendedWrenchesClient {
                 if(layer != -1) return ExtendedWrenchItem.getColor(item);
             }
             return 0xffffff;
-        }, ExtendedWrenches.WRENCH.get());
+        }, ExtendedItems.WRENCH.get());
     }
 }

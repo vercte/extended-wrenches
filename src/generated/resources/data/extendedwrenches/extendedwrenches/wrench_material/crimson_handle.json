@@ -1,0 +1,7 @@
+{
+  "items": [
+    "minecraft:crimson_planks"
+  ],
+  "part": "handle",
+  "texture": "extendedwrenches:item/extended_wrench/handle_materials/crimson"
+}

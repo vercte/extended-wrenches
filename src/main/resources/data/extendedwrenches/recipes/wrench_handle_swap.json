@@ -1,0 +1,8 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "template": {
+    "item": "extendedwrenches:wrench_handle_augment",
+    "count": 1
+  },
+  "part": "handle"
+}

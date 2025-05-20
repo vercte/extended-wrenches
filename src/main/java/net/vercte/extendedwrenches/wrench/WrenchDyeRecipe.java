@@ -12,7 +12,6 @@ import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.vercte.extendedwrenches.ExtendedWrenches;
 import net.vercte.extendedwrenches.ExtendedWrenchesRecipeSerializers;
 import org.jetbrains.annotations.NotNull;
 
@@ -58,13 +57,12 @@ public class WrenchDyeRecipe extends CustomRecipe {
             ItemStack stack = container.getItem(i);
             if (!stack.isEmpty()) {
                 Item item = stack.getItem();
-                if (item instanceof WrenchItem wrenchItem) {
+                if (item instanceof WrenchItem) {
                     if (!wrench.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
 
-                    if(wrenchItem instanceof ExtendedWrenchItem) wrench = stack.copy();
-                    else wrench = ExtendedWrenches.WRENCH.asStack(1);
+                    wrench = ExtendedWrenchItem.convertWrench(stack.copy());
                 } else {
                     if (!(item instanceof DyeItem dye)) {
                         return ItemStack.EMPTY;

@@ -1,0 +1,8 @@
+{
+  "item": {
+    "item": "minecraft:amethyst_shard",
+    "count": 1
+  },
+  "texture": "extendedwrenches:item/extended_wrench/head_materials/amethyst",
+  "part": "head"
+}

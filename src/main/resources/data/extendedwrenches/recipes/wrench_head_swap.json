@@ -1,0 +1,8 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "base": {
+    "item": "minecraft:stick",
+    "count": 1
+  },
+  "part": "head"
+}

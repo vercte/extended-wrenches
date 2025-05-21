@@ -1,0 +1,66 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "tag": "minecraft:trim_templates"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "item": "extendedwrenches:wrench_head_augment"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "extendedwrenches:incomplete_wrench_head_augment"
+        },
+        [
+          {
+            "tag": "forge:plates/brass"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "item": "extendedwrenches:incomplete_wrench_head_augment"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "extendedwrenches:incomplete_wrench_head_augment"
+        },
+        [
+          {
+            "tag": "forge:plates/brass"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "item": "extendedwrenches:incomplete_wrench_head_augment"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "extendedwrenches:incomplete_wrench_head_augment"
+        }
+      ],
+      "results": [
+        {
+          "item": "extendedwrenches:incomplete_wrench_head_augment"
+        }
+      ]
+    }
+  ],
+  "transitionalItem": {
+    "item": "extendedwrenches:incomplete_wrench_head_augment"
+  }
+}

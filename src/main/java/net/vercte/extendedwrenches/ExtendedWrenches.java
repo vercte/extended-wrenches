@@ -31,6 +31,7 @@ public class ExtendedWrenches {
 
         ExtendedItems.init();
 
+        modEventBus.addListener(ExtendedItems::addToCreative);
         modEventBus.addListener(ExtendedWrenchesData::registerDatapackRegistries);
         modEventBus.addListener(ExtendedWrenchesClient::registerItemColorHandlers);
         modEventBus.addListener(EventPriority.LOWEST, ExtendedWrenchesData::gatherData);

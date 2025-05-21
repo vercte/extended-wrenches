@@ -9,10 +9,15 @@ plugins {
 group = mod_group_id
 version = mod_version
 
-base {
-    archivesName = mod_id
-}
+boolean dev = System.getenv('RELEASE') == null || System.getenv('RELEASE').equals('false')
+ext.buildNumber = System.getenv('BUILD_NUMBER')
+String gitHash = "${calculateGitHash() + (hasUnstaged() ? "-modified" : "")}"
 
+base {
+    archivesName = "create-${minecraft_version}"
+    group = 'net.vercte.extendedwrenches'
+    version = mod_version + (dev && buildNumber != null ? "-${buildNumber}" : '')
+}
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
@@ -96,6 +101,7 @@ repositories {
     maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
     maven { url = "https://maven.tterrag.com" } // Registrate
     maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // ForgeConfigAPIPort
+    maven { url = "https://maven.blamejared.com" } // JEI
 }
 
 dependencies {
@@ -113,6 +119,8 @@ dependencies {
     implementation(fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}"))
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
     implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
+
+    implementation("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -151,4 +159,29 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+String calculateGitHash() {
+    try {
+        def output = providers.exec {
+            commandLine("git", "rev-parse", "HEAD")
+        }
+        return output.standardOutput.asText.get().trim()
+    } catch (Throwable ignored) {
+        return "unknown"
+    }
+}
+
+boolean hasUnstaged() {
+    try {
+        def output = providers.exec {
+            commandLine("git", "status", "--porcelain")
+        }
+        String result = output.standardOutput.asText.get().replace("/M gradlew(\\.bat)?/", "").trim()
+        if (!result.isEmpty())
+            println("Found stageable results:\n ${result}\n")
+        return !result.isEmpty()
+    } catch (Throwable ignored) {
+        return false
+    }
 }

@@ -14,7 +14,7 @@ ext.buildNumber = System.getenv('BUILD_NUMBER')
 String gitHash = "${calculateGitHash() + (hasUnstaged() ? "-modified" : "")}"
 
 base {
-    archivesName = "create-${minecraft_version}"
+    archivesName = "create-extended-wrenches-${minecraft_version}"
     group = 'net.vercte.extendedwrenches'
     version = mod_version + (dev && buildNumber != null ? "-${buildNumber}" : '')
 }

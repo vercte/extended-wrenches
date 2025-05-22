@@ -1,7 +1,4 @@
 {
-  "items": [
-    "create:zinc_ingot"
-  ],
   "part": "head",
   "texture": "extendedwrenches:item/extended_wrench/head_materials/zinc"
 }

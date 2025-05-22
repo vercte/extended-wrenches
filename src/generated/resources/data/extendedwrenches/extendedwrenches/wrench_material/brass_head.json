@@ -1,7 +1,4 @@
 {
-  "items": [
-    "create:brass_ingot"
-  ],
   "part": "head",
   "texture": "extendedwrenches:item/extended_wrench/head_materials/brass"
 }

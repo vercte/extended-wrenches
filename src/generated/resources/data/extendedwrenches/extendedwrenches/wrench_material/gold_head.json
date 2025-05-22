@@ -1,7 +1,4 @@
 {
-  "items": [
-    "minecraft:gold_ingot"
-  ],
   "part": "head",
   "texture": "extendedwrenches:item/extended_wrench/head_materials/gold"
 }

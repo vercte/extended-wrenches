@@ -1,7 +1,4 @@
 {
-  "items": [
-    "create:andesite_alloy"
-  ],
   "part": "head",
   "texture": "extendedwrenches:item/extended_wrench/head_materials/andesite_alloy"
 }

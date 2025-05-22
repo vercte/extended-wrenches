@@ -1,7 +1,4 @@
 {
-  "items": [
-    "minecraft:acacia_planks"
-  ],
   "part": "handle",
   "texture": "extendedwrenches:item/extended_wrench/handle_materials/acacia"
 }

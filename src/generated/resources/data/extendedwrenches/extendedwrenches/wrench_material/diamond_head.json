@@ -1,7 +1,4 @@
 {
-  "items": [
-    "minecraft:diamond"
-  ],
   "part": "head",
   "texture": "extendedwrenches:item/extended_wrench/head_materials/diamond"
 }

@@ -1,10 +1,4 @@
 {
-  "items": [
-    [
-      "minecraft:amethyst_shard",
-      "minecraft:amethyst_block"
-    ]
-  ],
   "part": "head",
   "texture": "extendedwrenches:item/extended_wrench/head_materials/amethyst"
 }

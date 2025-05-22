@@ -1,8 +1,0 @@
-{
-  "type": "extendedwrenches:wrench_material_swap",
-  "template": {
-    "item": "extendedwrenches:wrench_head_augment",
-    "count": 1
-  },
-  "part": "head"
-}

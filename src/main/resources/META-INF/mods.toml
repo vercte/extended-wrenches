@@ -11,7 +11,7 @@ displayName = "${mod_name}"
 displayURL = "https://modrinth.com/mod/extended-wrenches/"
 authors = "${mod_authors}"
 description = '''${mod_description}'''
-logoFile = "icon.png"
+logoFile = "assets/extendedwrenches/icon.png"
 
 [[dependencies."${mod_id}"]]
 modId = "forge"

@@ -102,6 +102,7 @@ repositories {
     maven { url = "https://maven.tterrag.com" } // Registrate
     maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // ForgeConfigAPIPort
     maven { url = "https://maven.blamejared.com" } // JEI
+    maven { url = "https://maven.terraformersmc.com/" } // EMI
 }
 
 dependencies {
@@ -123,6 +124,9 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+
+//    compileOnly fg.deobf("dev.emi:emi-forge:${emi_version}:api")
+//    runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

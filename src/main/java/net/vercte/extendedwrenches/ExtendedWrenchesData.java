@@ -22,7 +22,6 @@ public class ExtendedWrenchesData {
     }
 
     public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
-        ExtendedWrenches.LOGGER.info("{}", WRENCH_MATERIAL);
         event.dataPackRegistry(
                 WRENCH_MATERIAL,
                 WrenchMaterial.CODEC,

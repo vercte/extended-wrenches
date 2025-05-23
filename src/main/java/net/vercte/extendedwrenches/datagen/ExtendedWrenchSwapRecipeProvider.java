@@ -42,6 +42,7 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         head("gold_head", Tags.Items.INGOTS_GOLD);
         head("iron_head", Tags.Items.INGOTS_IRON);
         head("polished_rose_quartz_head", AllItems.POLISHED_ROSE_QUARTZ);
+        head("zinc_head", common("ingots/zinc"));
 
         setFolder("wrench/handle");
         handle("acacia_handle", Items.ACACIA_PLANKS);
@@ -61,7 +62,7 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         this.folder = folder;
     }
 
-    @SuppressWarnings({"DataFlowIssue", "SameParameterValue"})
+    @SuppressWarnings("DataFlowIssue")
     private TagKey<Item> common(String tag) {
         return ForgeRegistries.ITEMS.tags()
                 .createOptionalTagKey(new ResourceLocation("forge", tag), Collections.emptySet());

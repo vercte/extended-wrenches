@@ -57,6 +57,10 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         return addition.test(stack);
     }
 
+    public Ingredient getTemplate() { return this.template; }
+    public Ingredient getBase() { return Ingredient.of(AllItems.WRENCH, ExtendedItems.WRENCH); }
+    public Ingredient getAddition() { return this.addition; }
+
     @Override
     public boolean matches(@NotNull Container container, @NotNull Level level) {
         ItemStack template = container.getItem(0);

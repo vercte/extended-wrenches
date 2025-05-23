@@ -33,7 +33,6 @@ public class ExtendedWrenches {
 
         modEventBus.addListener(ExtendedItems::addToCreative);
         modEventBus.addListener(ExtendedWrenchesData::registerDatapackRegistries);
-        modEventBus.addListener(ExtendedWrenchesClient::registerItemColorHandlers);
         modEventBus.addListener(EventPriority.LOWEST, ExtendedWrenchesData::gatherData);
 
         ExtendedWrenchesRecipeSerializers.register(modEventBus);

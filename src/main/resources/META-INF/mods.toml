@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/vercte/extended-wrenches/"
 
 [[mods]]
 modId = "${mod_id}"
-version = "${mod_version}"
+version = "${mod_version}-${minecraft_version}"
 displayName = "${mod_name}"
 displayURL = "https://modrinth.com/mod/extended-wrenches/"
 authors = "${mod_authors}"

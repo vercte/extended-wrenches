@@ -1,5 +1,7 @@
 package net.vercte.extendedwrenches.wrench;
 
+import com.jozufozu.flywheel.core.PartialModel;
+import com.jozufozu.flywheel.core.StitchedSprite;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueHandler;
@@ -7,10 +9,8 @@ import com.simibubi.create.foundation.item.render.CustomRenderedItemModel;
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModelRenderer;
 import com.simibubi.create.foundation.item.render.PartialItemModelRenderer;
 import com.simibubi.create.foundation.model.BakedModelHelper;
-import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
-import net.createmod.catnip.animation.AnimationTickHolder;
-import net.createmod.catnip.render.StitchedSprite;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -30,7 +30,7 @@ public class ExtendedWrenchItemRenderer extends CustomRenderedItemModelRenderer 
 
     public static final StitchedSprite HEAD_TEXTURE = new StitchedSprite(ExtendedWrenches.asResource("item/extended_wrench/head_materials/gold"));
     public static final StitchedSprite HANDLE_TEXTURE = new StitchedSprite(ExtendedWrenches.asResource("item/extended_wrench/handle_materials/dark_oak"));
-    protected static final PartialModel GEAR = PartialModel.of(ExtendedWrenches.asResource("item/extended_wrench/gear"));
+    protected static final PartialModel GEAR = new PartialModel(ExtendedWrenches.asResource("item/extended_wrench/gear"));
 
     @Override
     protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer, ItemDisplayContext transformType,

@@ -2,13 +2,13 @@ package net.vercte.extendedwrenches.wrench;
 
 import com.google.common.collect.Lists;
 import com.simibubi.create.content.equipment.wrench.WrenchItem;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -18,15 +18,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class WrenchDyeRecipe extends CustomRecipe {
-    public WrenchDyeRecipe(ResourceLocation location, CraftingBookCategory category) {
-        super(location, category);
+    public WrenchDyeRecipe(CraftingBookCategory category) {
+        super(category);
     }
 
-    public boolean matches(CraftingContainer container, @NotNull Level level) {
+    public boolean matches(CraftingInput container, @NotNull Level level) {
         ItemStack wrench = ItemStack.EMPTY;
         List<ItemStack> dyes = Lists.newArrayList();
 
-        for(int i = 0; i < container.getContainerSize(); ++i) {
+        for(int i = 0; i < container.size(); ++i) {
             ItemStack item = container.getItem(i);
             if (!item.isEmpty()) {
                 if (item.getItem() instanceof WrenchItem) {
@@ -49,11 +49,11 @@ public class WrenchDyeRecipe extends CustomRecipe {
     }
 
     @NotNull
-    public ItemStack assemble(CraftingContainer container, @NotNull RegistryAccess access) {
+    public ItemStack assemble(CraftingInput container, @NotNull HolderLookup.Provider provider) {
         List<DyeItem> dyes = Lists.newArrayList();
         ItemStack wrench = ItemStack.EMPTY;
 
-        for(int i = 0; i < container.getContainerSize(); ++i) {
+        for(int i = 0; i < container.size(); ++i) {
             ItemStack stack = container.getItem(i);
             if (!stack.isEmpty()) {
                 Item item = stack.getItem();

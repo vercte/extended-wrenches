@@ -2,9 +2,11 @@ package net.vercte.extendedwrenches.wrench;
 
 import com.google.gson.JsonObject;
 import com.simibubi.create.AllItems;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -128,7 +130,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         }
     }
 
-    public static class Builder implements FinishedRecipe{
+    public static class Builder implements RecipeBuilder {
         private final ResourceLocation id;
         private ResourceLocation materialLocation;
         private Ingredient template;
@@ -192,5 +194,10 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
 
         @Override
         public ResourceLocation getAdvancementId() { return null; }
+
+        @Override
+        public RecipeBuilder unlockedBy(String s, Criterion<?> criterion) {
+            return null;
+        }
     }
 }

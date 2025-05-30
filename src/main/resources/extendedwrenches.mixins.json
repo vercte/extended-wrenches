@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "extendedwrenches.refmap.json",
   "mixins": [
+    "ItemProviderEntryMixin"
   ],
   "client": [
   ]

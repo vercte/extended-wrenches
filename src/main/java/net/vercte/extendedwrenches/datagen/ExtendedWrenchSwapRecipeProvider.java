@@ -1,8 +1,10 @@
 package net.vercte.extendedwrenches.datagen;
 
 import com.simibubi.create.AllItems;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -10,26 +12,24 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.Tags;
 import net.vercte.extendedwrenches.ExtendedItems;
 import net.vercte.extendedwrenches.ExtendedWrenches;
 import net.vercte.extendedwrenches.wrench.WrenchMaterialSwapRecipe;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
-    private Consumer<FinishedRecipe> consumer;
+    private RecipeOutput consumer;
     private String folder = "wrench";
 
-    public ExtendedWrenchSwapRecipeProvider(PackOutput output) {
-        super(output);
+    public ExtendedWrenchSwapRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries);
     }
 
     @Override
-    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(@NotNull RecipeOutput consumer) {
         this.consumer = consumer;
 
         setFolder("wrench/head");
@@ -62,10 +62,8 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         this.folder = folder;
     }
 
-    @SuppressWarnings("DataFlowIssue")
     private TagKey<Item> common(String tag) {
-        return ForgeRegistries.ITEMS.tags()
-                .createOptionalTagKey(new ResourceLocation("forge", tag), Collections.emptySet());
+        return TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath("c", tag));
     }
 
     private void head(String material, ItemLike... addition) {

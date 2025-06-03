@@ -3,7 +3,7 @@ package net.vercte.extendedwrenches.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.vercte.extendedwrenches.ExtendedWrenches;
 import net.vercte.extendedwrenches.ExtendedWrenchesData;
 import org.jetbrains.annotations.NotNull;

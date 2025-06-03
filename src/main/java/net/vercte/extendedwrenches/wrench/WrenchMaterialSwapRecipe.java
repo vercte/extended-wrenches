@@ -1,22 +1,30 @@
 package net.vercte.extendedwrenches.wrench;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simibubi.create.AllItems;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeBuilder;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipe;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.vercte.extendedwrenches.ExtendedItems;
@@ -24,20 +32,17 @@ import net.vercte.extendedwrenches.ExtendedWrenches;
 import net.vercte.extendedwrenches.ExtendedWrenchesData;
 import net.vercte.extendedwrenches.ExtendedWrenchesRecipeSerializers;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.system.NonnullDefault;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.function.Consumer;
 
 public class WrenchMaterialSwapRecipe implements SmithingRecipe {
-    private final ResourceLocation id;
     private final ResourceLocation materialLocation;
     final Ingredient template;
     final Ingredient addition;
     final String part;
 
-    public WrenchMaterialSwapRecipe(ResourceLocation id, ResourceLocation material, Ingredient template, Ingredient addition, String part) {
-        this.id = id;
+    public WrenchMaterialSwapRecipe(ResourceLocation material, Ingredient template, Ingredient addition, String part) {
         this.materialLocation = material;
         this.template = template;
         this.addition = addition;
@@ -59,16 +64,18 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         return addition.test(stack);
     }
 
+    public ResourceLocation getMaterialLocation() { return this.materialLocation; }
     public Ingredient getTemplate() { return this.template; }
     public Ingredient getBase() { return Ingredient.of(AllItems.WRENCH, ExtendedItems.WRENCH); }
     public Ingredient getAddition() { return this.addition; }
+    public String getPart() { return this.part; }
 
     @Override
-    public boolean matches(@NotNull Container container, @NotNull Level level) {
-        ItemStack template = container.getItem(0);
-        ItemStack addition = container.getItem(2);
+    public boolean matches(@NotNull SmithingRecipeInput input, @NotNull Level level) {
+        ItemStack template = input.getItem(0);
+        ItemStack addition = input.getItem(2);
 
-        ItemStack stack = container.getItem(1);
+        ItemStack stack = input.getItem(1);
         boolean isWrench = stack.is(ExtendedItems.WRENCH.get()) || stack.is(AllItems.WRENCH.get());
         return isWrench &&
                 this.template.test(template) && this.addition.test(addition) &&
@@ -77,56 +84,53 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
 
     @Override
     @NotNull
-    public ItemStack assemble(@NotNull Container container, @NotNull RegistryAccess access) {
-        Registry<WrenchMaterial> materials = access.registryOrThrow(ExtendedWrenchesData.WRENCH_MATERIAL);
-        Optional<WrenchMaterial> optMaterial = materials.getOptional(materialLocation);
+    public ItemStack assemble(@NotNull SmithingRecipeInput input, @NotNull HolderLookup.Provider provider) {
+        ResourceKey<WrenchMaterial> materialKey = ResourceKey.create(ExtendedWrenchesData.WRENCH_MATERIAL, materialLocation);
+        HolderLookup.RegistryLookup<WrenchMaterial> materials = provider.lookupOrThrow(ExtendedWrenchesData.WRENCH_MATERIAL);
+        Optional<Holder.Reference<WrenchMaterial>> optMaterial = materials.get(materialKey);
 
         if(optMaterial.isEmpty()) return ItemStack.EMPTY;
-        ItemStack wrench = ExtendedWrenchItem.convertWrench(container.getItem(1));
-        WrenchMaterial material = optMaterial.get();
-        ResourceLocation materialLocation = materials.getKey(material);
+        ItemStack wrench = ExtendedWrenchItem.convertWrench(input.getItem(1));
+        WrenchMaterial material = optMaterial.get().value();
 
-        assert materialLocation != null;
         return ExtendedWrenchItem.swapMaterial(wrench.copy(), materialLocation, material, this.part);
     }
 
     @Override
     @NotNull
-    public ItemStack getResultItem(@NotNull RegistryAccess access) {
+    public ItemStack getResultItem(@NotNull HolderLookup.Provider provider) {
         return ExtendedItems.WRENCH.asStack();
     }
 
     @Override
     @NotNull
-    public ResourceLocation getId() { return id; }
-
-    @Override
-    @NotNull
     public RecipeSerializer<?> getSerializer() { return ExtendedWrenchesRecipeSerializers.WRENCH_MATERIAL_SWAP.get(); }
 
-    @NonnullDefault
     public static class Serializer implements RecipeSerializer<WrenchMaterialSwapRecipe> {
-        public WrenchMaterialSwapRecipe fromJson(ResourceLocation location, JsonObject json) {
-            Ingredient base = Ingredient.fromJson(GsonHelper.getNonNull(json, "template"));
-            Ingredient addition = Ingredient.fromJson(GsonHelper.getNonNull(json, "addition"));
-            ResourceLocation materialLocation = ResourceLocation.parse(GsonHelper.getAsString(json, "material"));
-            String part = GsonHelper.getAsString(json, "part");
-            return new WrenchMaterialSwapRecipe(location, materialLocation, base, addition, part);
+        public static final MapCodec<WrenchMaterialSwapRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+                ResourceLocation.CODEC.fieldOf("material").forGetter(WrenchMaterialSwapRecipe::getMaterialLocation),
+                Ingredient.CODEC.fieldOf("template").forGetter(WrenchMaterialSwapRecipe::getTemplate),
+                Ingredient.CODEC.fieldOf("addition").forGetter(WrenchMaterialSwapRecipe::getAddition),
+                Codec.STRING.fieldOf("part").forGetter(WrenchMaterialSwapRecipe::getPart)
+        ).apply(inst, WrenchMaterialSwapRecipe::new));
+
+        public static final StreamCodec<RegistryFriendlyByteBuf, WrenchMaterialSwapRecipe> STREAM_CODEC =
+                StreamCodec.composite(
+                        ResourceLocation.STREAM_CODEC, WrenchMaterialSwapRecipe::getMaterialLocation,
+                        Ingredient.CONTENTS_STREAM_CODEC, WrenchMaterialSwapRecipe::getTemplate,
+                        Ingredient.CONTENTS_STREAM_CODEC, WrenchMaterialSwapRecipe::getAddition,
+                        ByteBufCodecs.STRING_UTF8, WrenchMaterialSwapRecipe::getPart,
+                        WrenchMaterialSwapRecipe::new
+                );
+
+        @Override
+        public MapCodec<WrenchMaterialSwapRecipe> codec() {
+            return CODEC;
         }
 
-        public WrenchMaterialSwapRecipe fromNetwork(ResourceLocation location, FriendlyByteBuf buffer) {
-            Ingredient template = Ingredient.fromNetwork(buffer);
-            Ingredient addition = Ingredient.fromNetwork(buffer);
-            ResourceLocation materialLocation = buffer.readResourceLocation();
-            String part = buffer.readUtf();
-            return new WrenchMaterialSwapRecipe(location, materialLocation, template, addition, part);
-        }
-
-        public void toNetwork(FriendlyByteBuf buffer, WrenchMaterialSwapRecipe recipe) {
-            recipe.template.toNetwork(buffer);
-            recipe.addition.toNetwork(buffer);
-            buffer.writeResourceLocation(recipe.materialLocation);
-            buffer.writeUtf(recipe.part);
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, WrenchMaterialSwapRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 
@@ -169,35 +173,36 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
             return this;
         }
 
-        public void save(Consumer<FinishedRecipe> consumer) {
-            consumer.accept(this);
-        }
-
         @Override
-        public void serializeRecipeData(JsonObject json) {
-            json.addProperty("material", materialLocation.toString());
-            json.add("template", template.toJson());
-            json.add("addition", addition.toJson());
-            json.addProperty("part", part);
+        @NotNull
+        public RecipeBuilder unlockedBy(@NotNull String name, @NotNull Criterion<?> criterion) {
+            return this;
         }
 
         @Override
         @NotNull
-        public ResourceLocation getId() { return this.id; }
+        public RecipeBuilder group(@Nullable String s) {
+            return this;
+        }
 
         @Override
         @NotNull
-        public RecipeSerializer<?> getType() { return ExtendedWrenchesRecipeSerializers.WRENCH_MATERIAL_SWAP.get(); }
+        public Item getResult() {
+            return ExtendedItems.WRENCH.asItem();
+        }
 
         @Override
-        public JsonObject serializeAdvancement() { return null; }
+        public void save(@NotNull RecipeOutput output, @NotNull ResourceLocation location) {
+            Advancement.Builder advancement = output.advancement()
+                    .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
+                    .rewards(AdvancementRewards.Builder.recipe(id))
+                    .requirements(AdvancementRequirements.Strategy.OR);
+            WrenchMaterialSwapRecipe recipe = new WrenchMaterialSwapRecipe(this.materialLocation, this.template, this.addition, this.part);
+            output.accept(location, recipe, advancement.build(id.withPrefix("recipes/")));
+        }
 
-        @Override
-        public ResourceLocation getAdvancementId() { return null; }
-
-        @Override
-        public RecipeBuilder unlockedBy(String s, Criterion<?> criterion) {
-            return null;
+        public void save(@NotNull RecipeOutput output) {
+            this.save(output, this.id);
         }
     }
 }

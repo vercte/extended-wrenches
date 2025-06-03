@@ -5,8 +5,9 @@ import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.*;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.vercte.extendedwrenches.wrench.ExtendedWrenchItem;
 
 public class ExtendedItems {
@@ -16,7 +17,7 @@ public class ExtendedItems {
             .properties(p -> p.stacksTo(1))
             .model(AssetLookup.itemModelWithPartials())
             .lang(w -> "item.extendedwrenches.nope_fake_wrench_name_i_hate_you_registrate", "Wrench")
-            .tag(AllTags.AllItemTags.WRENCH.tag)
+            .tag(AllTags.AllItemTags.WRENCH.tag, ItemTags.DYEABLE)
             .register();
 
     public static final ItemEntry<Item> WRENCH_HEAD_AUGMENT = REGISTRATE.item("wrench_head_augment", Item::new)
@@ -33,8 +34,8 @@ public class ExtendedItems {
 
     public static void addToCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.getEntries().putAfter(new ItemStack(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE), WRENCH_HANDLE_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            event.getEntries().putAfter(WRENCH_HANDLE_AUGMENT.asStack(), WRENCH_HEAD_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.insertAfter(new ItemStack(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE), WRENCH_HANDLE_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.insertAfter(WRENCH_HANDLE_AUGMENT.asStack(), WRENCH_HEAD_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }
 

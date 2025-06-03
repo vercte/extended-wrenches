@@ -5,8 +5,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.vercte.extendedwrenches.datagen.ExtendedEntriesProvider;
 import net.vercte.extendedwrenches.datagen.ExtendedWrenchSwapRecipeProvider;
 import net.vercte.extendedwrenches.wrench.WrenchMaterial;
@@ -36,7 +36,7 @@ public class ExtendedWrenchesData {
 
         if(event.includeServer()) {
             generator.addProvider(true, new ExtendedEntriesProvider(output, lookupProvider));
-            generator.addProvider(true, new ExtendedWrenchSwapRecipeProvider(output));
+            generator.addProvider(true, new ExtendedWrenchSwapRecipeProvider(output, lookupProvider));
         }
     }
 }

@@ -3,17 +3,18 @@ package net.vercte.extendedwrenches.wrench;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.wrench.WrenchItem;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.vercte.extendedwrenches.ExtendedItems;
+import net.vercte.extendedwrenches.ExtendedWrenchesData;
+import net.vercte.extendedwrenches.wrench.components.WrenchMaterialComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class ExtendedWrenchItem extends WrenchItem {
@@ -21,49 +22,37 @@ public class ExtendedWrenchItem extends WrenchItem {
         super(properties);
     }
 
-    private static final String TAG_DISPLAY = "display";
-    private static final String TAG_GRIP_COLOR = "grip_color";
-
-    private static final String TAG_MATERIALS = "materials";
-    private static final String TAG_MATERIAL_LOCATION = "location";
-    private static final String TAG_MATERIAL_TEXTURE = "texture";
-
     public static final int DEFAULT_GRIP_COLOR = 0xc74f46;
 
-    public static ItemStack swapMaterial(ItemStack stack, ResourceLocation location, WrenchMaterial material, String part) {
-        CompoundTag display = stack.get(TAG_DISPLAY);
-        CompoundTag materials = display.getCompound(TAG_MATERIALS);
-        CompoundTag materialData = materials.getCompound(part);
-        materialData.putString(TAG_MATERIAL_LOCATION, location.toString());
-        materialData.putString(TAG_MATERIAL_TEXTURE, material.texture().toString());
-        materials.put(part, materialData);
-        display.put(TAG_MATERIALS, materials);
+    public static ItemStack swapMaterial(ItemStack stack, WrenchPart part, Holder<WrenchMaterial> holder) {
+        WrenchMaterialComponent materials = stack.getOrDefault(ExtendedWrenchesData.WRENCH_MATERIAL_COMPONENT, WrenchMaterialComponent.empty());
+        materials.setMaterial(part, holder);
+        stack.set(ExtendedWrenchesData.WRENCH_MATERIAL_COMPONENT, materials);
         return stack;
     }
 
-    public static boolean hasMaterial(ItemStack stack, @Nullable ResourceLocation material, String part) {
+    public static boolean hasMaterial(ItemStack stack, WrenchPart part, @Nullable ResourceLocation material) {
         if(material == null) return false;
 
-        CompoundTag display = stack.getOrCreateTagElement(TAG_DISPLAY);
-        CompoundTag materials = display.getCompound(TAG_MATERIALS);
-        CompoundTag materialData = materials.getCompound(part);
-        String materialLocation = materialData.getString(TAG_MATERIAL_LOCATION);
+        WrenchMaterialComponent materials = stack.getOrDefault(ExtendedWrenchesData.WRENCH_MATERIAL_COMPONENT, WrenchMaterialComponent.empty());
+        Holder<WrenchMaterial> holderMaterial = materials.getMaterialHolder(part);
+        if(holderMaterial != null && holderMaterial.is(material)) return true;
 
-        if(materialLocation.isEmpty()) {
+        if(!materials.partPresent(part)) {
             String locString = material.toString();
-            if(part.equals("head") && locString.equals("extendedwrenches:gold_head")) return true;
-            if(part.equals("handle") && locString.equals("extendedwrenches:dark_oak_handle")) return true;
+            if(part == WrenchPart.HEAD && locString.equals("extendedwrenches:gold_head")) return true;
+            return part == WrenchPart.HANDLE && locString.equals("extendedwrenches:dark_oak_handle");
         }
 
-        return materialLocation.equals(material.toString());
+        return false;
     }
 
     @Nullable
-    public static ResourceLocation getMaterialTexture(ItemStack stack, String part) {
-        CompoundTag display = stack.getOrCreateTagElement(TAG_DISPLAY);
-        CompoundTag materials = display.getCompound(TAG_MATERIALS);
-        String texture = materials.getCompound(part).getString(TAG_MATERIAL_TEXTURE);
-        return !texture.isEmpty() ? new ResourceLocation(texture) : null;
+    public static ResourceLocation getMaterialTexture(ItemStack stack, WrenchPart part) {
+        WrenchMaterialComponent materials = stack.getOrDefault(ExtendedWrenchesData.WRENCH_MATERIAL_COMPONENT, WrenchMaterialComponent.empty());
+        Holder<WrenchMaterial> holderMaterial = materials.getMaterialHolder(part);
+        if(holderMaterial == null) return null;
+        return holderMaterial.value().texture();
     }
 
     public static ItemStack convertWrench(ItemStack original) {

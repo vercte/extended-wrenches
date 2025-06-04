@@ -6,7 +6,7 @@ import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.vercte.extendedwrenches.ExtendedItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,10 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 // Mixin 'borrowed' from @noregard in the Create mod discord's #devchat
 @Mixin(ItemProviderEntry.class)
-public abstract class ItemProviderEntryMixin<T extends ItemLike> extends RegistryEntry<T> {
-    public ItemProviderEntryMixin(AbstractRegistrate<?> owner, RegistryObject<T> delegate) {
-        super(owner, delegate);
-    }
+public abstract class ItemProviderEntryMixin<R extends ItemLike, T extends R> extends RegistryEntry<R, T> {
+    public ItemProviderEntryMixin(AbstractRegistrate owner, DeferredHolder<R, T> key) { super(owner, key); }
 
     @Inject(method = "isIn", at = @At("HEAD"), cancellable = true)
     public void isIn(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {

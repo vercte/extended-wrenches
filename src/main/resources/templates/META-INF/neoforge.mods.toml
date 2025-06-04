@@ -11,25 +11,25 @@ displayName = "${mod_name}"
 displayURL = "https://modrinth.com/mod/extended-wrenches/"
 authors = "${mod_authors}"
 description = '''${mod_description}'''
-logoFile = "assets/extendedwrenches/icon.png"
+logoFile = "../../assets/extendedwrenches/icon.png"
 
 [[dependencies."${mod_id}"]]
-modId = "forge"
-mandatory = true
-versionRange = "${forge_version_range}"
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies."${mod_id}"]]
 modId = "minecraft"
-mandatory = true
+type="required"
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies."${mod_id}"]]
 modId="create"
-mandatory=true
+type="required"
 versionRange="[6.0.4,6.0.5)"
 ordering="NONE"
 side="BOTH"

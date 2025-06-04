@@ -1,6 +1,5 @@
 package net.vercte.extendedwrenches.wrench;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simibubi.create.AllItems;
@@ -19,6 +18,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -40,9 +40,9 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
     private final ResourceLocation materialLocation;
     final Ingredient template;
     final Ingredient addition;
-    final String part;
+    final WrenchPart part;
 
-    public WrenchMaterialSwapRecipe(ResourceLocation material, Ingredient template, Ingredient addition, String part) {
+    public WrenchMaterialSwapRecipe(ResourceLocation material, Ingredient template, Ingredient addition, WrenchPart part) {
         this.materialLocation = material;
         this.template = template;
         this.addition = addition;
@@ -68,7 +68,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
     public Ingredient getTemplate() { return this.template; }
     public Ingredient getBase() { return Ingredient.of(AllItems.WRENCH, ExtendedItems.WRENCH); }
     public Ingredient getAddition() { return this.addition; }
-    public String getPart() { return this.part; }
+    public WrenchPart getPart() { return this.part; }
 
     @Override
     public boolean matches(@NotNull SmithingRecipeInput input, @NotNull Level level) {
@@ -79,7 +79,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         boolean isWrench = stack.is(ExtendedItems.WRENCH.get()) || stack.is(AllItems.WRENCH.get());
         return isWrench &&
                 this.template.test(template) && this.addition.test(addition) &&
-                !ExtendedWrenchItem.hasMaterial(stack, materialLocation, part);
+                !ExtendedWrenchItem.hasMaterial(stack, part, materialLocation);
     }
 
     @Override
@@ -91,9 +91,8 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
 
         if(optMaterial.isEmpty()) return ItemStack.EMPTY;
         ItemStack wrench = ExtendedWrenchItem.convertWrench(input.getItem(1));
-        WrenchMaterial material = optMaterial.get().value();
 
-        return ExtendedWrenchItem.swapMaterial(wrench.copy(), materialLocation, material, this.part);
+        return ExtendedWrenchItem.swapMaterial(wrench.copy(), this.part, optMaterial.get());
     }
 
     @Override
@@ -111,7 +110,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
                 ResourceLocation.CODEC.fieldOf("material").forGetter(WrenchMaterialSwapRecipe::getMaterialLocation),
                 Ingredient.CODEC.fieldOf("template").forGetter(WrenchMaterialSwapRecipe::getTemplate),
                 Ingredient.CODEC.fieldOf("addition").forGetter(WrenchMaterialSwapRecipe::getAddition),
-                Codec.STRING.fieldOf("part").forGetter(WrenchMaterialSwapRecipe::getPart)
+                StringRepresentable.fromEnum(WrenchPart::values).fieldOf("part").forGetter(WrenchMaterialSwapRecipe::getPart)
         ).apply(inst, WrenchMaterialSwapRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, WrenchMaterialSwapRecipe> STREAM_CODEC =
@@ -119,16 +118,18 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
                         ResourceLocation.STREAM_CODEC, WrenchMaterialSwapRecipe::getMaterialLocation,
                         Ingredient.CONTENTS_STREAM_CODEC, WrenchMaterialSwapRecipe::getTemplate,
                         Ingredient.CONTENTS_STREAM_CODEC, WrenchMaterialSwapRecipe::getAddition,
-                        ByteBufCodecs.STRING_UTF8, WrenchMaterialSwapRecipe::getPart,
+                        ByteBufCodecs.idMapper(WrenchPart.BY_ID, WrenchPart::getId), WrenchMaterialSwapRecipe::getPart,
                         WrenchMaterialSwapRecipe::new
                 );
 
         @Override
+        @NotNull
         public MapCodec<WrenchMaterialSwapRecipe> codec() {
             return CODEC;
         }
 
         @Override
+        @NotNull
         public StreamCodec<RegistryFriendlyByteBuf, WrenchMaterialSwapRecipe> streamCodec() {
             return STREAM_CODEC;
         }
@@ -139,7 +140,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         private ResourceLocation materialLocation;
         private Ingredient template;
         private Ingredient addition;
-        private String part;
+        private WrenchPart part;
 
         public Builder(ResourceLocation id) {
             this.id = id;
@@ -168,7 +169,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
             return this;
         }
 
-        public Builder part(String part) {
+        public Builder part(WrenchPart part) {
             this.part = part;
             return this;
         }

@@ -2,19 +2,53 @@ package net.vercte.extendedwrenches.wrench.components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
+import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.util.StringRepresentable;
+import net.vercte.extendedwrenches.ExtendedWrenchesData;
+import net.vercte.extendedwrenches.wrench.WrenchMaterial;
+import net.vercte.extendedwrenches.wrench.WrenchPart;
+import org.jetbrains.annotations.Nullable;
 
-public record WrenchMaterialComponent(int color) {
+import java.util.HashMap;
+import java.util.Map;
+
+public record WrenchMaterialComponent(Map<WrenchPart, Holder<WrenchMaterial>> parts) {
     public static final Codec<WrenchMaterialComponent> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    Codec.INT.fieldOf("color").forGetter(WrenchMaterialComponent::color)
+                    Codec.unboundedMap(
+                            StringRepresentable.fromEnum(WrenchPart::values),
+                            RegistryFixedCodec.create(ExtendedWrenchesData.WRENCH_MATERIAL)
+                    ).fieldOf("parts").forGetter(WrenchMaterialComponent::parts)
             ).apply(instance, WrenchMaterialComponent::new)
     );
-
-    public static final StreamCodec<ByteBuf, WrenchMaterialComponent> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT, WrenchMaterialComponent::color,
+    public static final StreamCodec<RegistryFriendlyByteBuf, WrenchMaterialComponent> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.map(
+                    HashMap::new,
+                    ByteBufCodecs.idMapper(WrenchPart.BY_ID, WrenchPart::getId),
+                    ByteBufCodecs.holderRegistry(ExtendedWrenchesData.WRENCH_MATERIAL),
+                    2
+            ), WrenchMaterialComponent::parts,
             WrenchMaterialComponent::new
     );
+
+    public static WrenchMaterialComponent empty() {
+        return new WrenchMaterialComponent(new HashMap<>());
+    }
+
+    public boolean partPresent(WrenchPart part) {
+        return parts.containsKey(part);
+    }
+
+    @Nullable
+    public Holder<WrenchMaterial> getMaterialHolder(WrenchPart part) {
+        return parts.get(part);
+    }
+
+    public void setMaterial(WrenchPart part, Holder<WrenchMaterial> material) {
+        parts.put(part, material);
+    }
 }

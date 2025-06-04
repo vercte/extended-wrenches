@@ -22,12 +22,11 @@ public class ExtendedWrenchItem extends WrenchItem {
         super(properties);
     }
 
-    public static final int DEFAULT_GRIP_COLOR = 0xc74f46;
+    public static final int DEFAULT_GRIP_COLOR = -0x38b0b9;
 
     public static ItemStack swapMaterial(ItemStack stack, WrenchPart part, Holder<WrenchMaterial> holder) {
         WrenchMaterialComponent materials = stack.getOrDefault(ExtendedWrenchesData.WRENCH_MATERIAL_COMPONENT, WrenchMaterialComponent.empty());
-        materials.setMaterial(part, holder);
-        stack.set(ExtendedWrenchesData.WRENCH_MATERIAL_COMPONENT, materials);
+        stack.set(ExtendedWrenchesData.WRENCH_MATERIAL_COMPONENT, materials.withChangedMaterial(part, holder));
         return stack;
     }
 
@@ -58,7 +57,7 @@ public class ExtendedWrenchItem extends WrenchItem {
     public static ItemStack convertWrench(ItemStack original) {
         if(original.is(AllItems.WRENCH.get()))
             return ExtendedItems.WRENCH.asStack();
-        return original;
+        return original.copy();
     }
 
     @Override

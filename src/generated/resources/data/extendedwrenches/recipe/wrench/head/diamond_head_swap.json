@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "tag": "c:gems/diamond"
+  },
+  "material": "extendedwrenches:diamond_head",
+  "part": "head",
+  "template": {
+    "item": "extendedwrenches:wrench_head_augment"
+  }
+}

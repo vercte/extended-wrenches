@@ -92,7 +92,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         if(optMaterial.isEmpty()) return ItemStack.EMPTY;
         ItemStack wrench = ExtendedWrenchItem.convertWrench(input.getItem(1));
 
-        return ExtendedWrenchItem.swapMaterial(wrench.copy(), this.part, optMaterial.get());
+        return ExtendedWrenchItem.swapMaterial(wrench, this.part, optMaterial.get());
     }
 
     @Override

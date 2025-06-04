@@ -48,7 +48,9 @@ public record WrenchMaterialComponent(Map<WrenchPart, Holder<WrenchMaterial>> pa
         return parts.get(part);
     }
 
-    public void setMaterial(WrenchPart part, Holder<WrenchMaterial> material) {
-        parts.put(part, material);
+    public WrenchMaterialComponent withChangedMaterial(WrenchPart part, Holder<WrenchMaterial> material) {
+        WrenchMaterialComponent newComponent = new WrenchMaterialComponent(new HashMap<>(this.parts));
+        newComponent.parts.put(part, material);
+        return newComponent;
     }
 }

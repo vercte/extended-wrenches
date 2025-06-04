@@ -6,7 +6,7 @@
   "loops": 1,
   "results": [
     {
-      "item": "extendedwrenches:wrench_head_augment"
+      "id": "extendedwrenches:wrench_head_augment"
     }
   ],
   "sequence": [
@@ -24,7 +24,7 @@
       ],
       "results": [
         {
-          "item": "extendedwrenches:incomplete_wrench_head_augment"
+          "id": "extendedwrenches:incomplete_wrench_head_augment"
         }
       ]
     },
@@ -42,7 +42,7 @@
       ],
       "results": [
         {
-          "item": "extendedwrenches:incomplete_wrench_head_augment"
+          "id": "extendedwrenches:incomplete_wrench_head_augment"
         }
       ]
     },
@@ -55,12 +55,12 @@
       ],
       "results": [
         {
-          "item": "extendedwrenches:incomplete_wrench_head_augment"
+          "id": "extendedwrenches:incomplete_wrench_head_augment"
         }
       ]
     }
   ],
   "transitionalItem": {
-    "item": "extendedwrenches:incomplete_wrench_head_augment"
+    "id": "extendedwrenches:incomplete_wrench_head_augment"
   }
 }

@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.vercte.extendedwrenches.ExtendedWrenches;
 import net.vercte.extendedwrenches.wrench.WrenchMaterialSwapRecipe;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +29,7 @@ public class ExtendedJEI implements IModPlugin {
     }
 
 
-    public static <I extends Container> ItemStack assembleRecipe(I input, Recipe<I> recipe) {
+    public static <I extends RecipeInput> ItemStack assembleRecipe(I input, Recipe<I> recipe) {
         Minecraft minecraft = Minecraft.getInstance();
         ClientLevel level = minecraft.level;
         if (level == null) {

@@ -2,10 +2,9 @@ package net.vercte.extendedwrenches.compat;
 
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.recipe.category.extensions.vanilla.smithing.ISmithingCategoryExtension;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.vercte.extendedwrenches.wrench.WrenchMaterialSwapRecipe;
 import org.lwjgl.system.NonnullDefault;
 
@@ -37,19 +36,11 @@ public class WrenchMaterialSwapCategoryExtension implements ISmithingCategoryExt
 
             for(ItemStack template : templateIngredient.getItems()) {
                 for(ItemStack base : baseIngredient.getItems()) {
-                    Container recipeInput = createInput(template, base, addition);
+                    SmithingRecipeInput recipeInput = new SmithingRecipeInput(template, base, addition);
                     ItemStack output = ExtendedJEI.assembleRecipe(recipeInput, recipe);
                     acceptor.addItemStack(output);
                 }
             }
         }
-    }
-
-    private static Container createInput(ItemStack template, ItemStack base, ItemStack addition) {
-        Container container = new SimpleContainer(3);
-        container.setItem(0, template);
-        container.setItem(1, base);
-        container.setItem(2, addition);
-        return container;
     }
 }

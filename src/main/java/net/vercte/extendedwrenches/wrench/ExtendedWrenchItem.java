@@ -100,39 +100,39 @@ public class ExtendedWrenchItem extends WrenchItem {
         }
     }
 
-    public static ItemStack swapMaterial(ItemStack stack, ResourceLocation location, WrenchMaterial material, String part) {
+    public static ItemStack swapMaterial(ItemStack stack, ResourceLocation location, WrenchMaterial material, WrenchPart part) {
         CompoundTag display = stack.getOrCreateTagElement(TAG_DISPLAY);
         CompoundTag materials = display.getCompound(TAG_MATERIALS);
-        CompoundTag materialData = materials.getCompound(part);
+        CompoundTag materialData = materials.getCompound(part.getSerializedName());
         materialData.putString(TAG_MATERIAL_LOCATION, location.toString());
         materialData.putString(TAG_MATERIAL_TEXTURE, material.texture().toString());
-        materials.put(part, materialData);
+        materials.put(part.getSerializedName(), materialData);
         display.put(TAG_MATERIALS, materials);
         return stack;
     }
 
-    public static boolean hasMaterial(ItemStack stack, @Nullable ResourceLocation material, String part) {
+    public static boolean hasMaterial(ItemStack stack, WrenchPart part, @Nullable ResourceLocation material) {
         if(material == null) return false;
 
         CompoundTag display = stack.getOrCreateTagElement(TAG_DISPLAY);
         CompoundTag materials = display.getCompound(TAG_MATERIALS);
-        CompoundTag materialData = materials.getCompound(part);
+        CompoundTag materialData = materials.getCompound(part.getSerializedName());
         String materialLocation = materialData.getString(TAG_MATERIAL_LOCATION);
 
         if(materialLocation.isEmpty()) {
             String locString = material.toString();
-            if(part.equals("head") && locString.equals("extendedwrenches:gold_head")) return true;
-            if(part.equals("handle") && locString.equals("extendedwrenches:dark_oak_handle")) return true;
+            if(part == WrenchPart.HEAD && locString.equals("extendedwrenches:gold_head")) return true;
+            if(part == WrenchPart.HANDLE && locString.equals("extendedwrenches:dark_oak_handle")) return true;
         }
 
         return materialLocation.equals(material.toString());
     }
 
     @Nullable
-    public static ResourceLocation getMaterialTexture(ItemStack stack, String part) {
+    public static ResourceLocation getMaterialTexture(ItemStack stack, WrenchPart part) {
         CompoundTag display = stack.getOrCreateTagElement(TAG_DISPLAY);
         CompoundTag materials = display.getCompound(TAG_MATERIALS);
-        String texture = materials.getCompound(part).getString(TAG_MATERIAL_TEXTURE);
+        String texture = materials.getCompound(part.getSerializedName()).getString(TAG_MATERIAL_TEXTURE);
         return !texture.isEmpty() ? new ResourceLocation(texture) : null;
     }
 

@@ -7,6 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -35,6 +36,10 @@ public class ExtendedWrenchesData {
 
     private static <T> ResourceKey<Registry<T>> key(String name) {
         return ResourceKey.createRegistryKey(ExtendedWrenches.asResource(name));
+    }
+
+    public static void register(IEventBus bus) {
+        COMPONENT_REGISTRAR.register(bus);
     }
 
     public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {

@@ -12,7 +12,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
 @Mod(ExtendedWrenches.ID)
@@ -27,6 +26,7 @@ public class ExtendedWrenches {
 
     public ExtendedWrenches(IEventBus modEventBus) {
         ExtendedItems.init();
+        ExtendedWrenchesData.register(modEventBus);
 
         modEventBus.addListener(ExtendedItems::addToCreative);
         modEventBus.addListener(ExtendedWrenchesData::registerDatapackRegistries);
@@ -34,7 +34,6 @@ public class ExtendedWrenches {
 
         ExtendedWrenchesRecipeSerializers.register(modEventBus);
         REGISTRATE.registerEventListeners(modEventBus);
-        NeoForge.EVENT_BUS.register(this);
     }
 
     public static ResourceLocation asResource(String path) {

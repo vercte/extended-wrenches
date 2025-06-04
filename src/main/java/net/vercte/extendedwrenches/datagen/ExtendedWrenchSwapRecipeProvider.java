@@ -15,6 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.vercte.extendedwrenches.ExtendedItems;
 import net.vercte.extendedwrenches.ExtendedWrenches;
 import net.vercte.extendedwrenches.wrench.WrenchMaterialSwapRecipe;
+import net.vercte.extendedwrenches.wrench.WrenchPart;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -77,7 +78,7 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
     }
 
     private void head(String material, Ingredient addition) {
-        this.recipe(material, ExtendedItems.WRENCH_HEAD_AUGMENT, addition, "head");
+        this.recipe(material, ExtendedItems.WRENCH_HEAD_AUGMENT, addition, WrenchPart.HEAD);
     }
 
     private void handle(String material, ItemLike... addition) {
@@ -85,10 +86,10 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
     }
 
     private void handle(String material, Ingredient addition) {
-        this.recipe(material, ExtendedItems.WRENCH_HANDLE_AUGMENT, addition, "handle");
+        this.recipe(material, ExtendedItems.WRENCH_HANDLE_AUGMENT, addition, WrenchPart.HANDLE);
     }
 
-    private void recipe(String material, ItemLike template, Ingredient addition, String part) {
+    private void recipe(String material, ItemLike template, Ingredient addition, WrenchPart part) {
         ResourceLocation recipeLocation = ExtendedWrenches.asResource(this.folder + "/" + material + "_swap");
         new WrenchMaterialSwapRecipe.Builder(recipeLocation)
                 .material(material)

@@ -32,9 +32,9 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
     private final ResourceLocation materialLocation;
     final Ingredient template;
     final Ingredient addition;
-    final String part;
+    final WrenchPart part;
 
-    public WrenchMaterialSwapRecipe(ResourceLocation id, ResourceLocation material, Ingredient template, Ingredient addition, String part) {
+    public WrenchMaterialSwapRecipe(ResourceLocation id, ResourceLocation material, Ingredient template, Ingredient addition, WrenchPart part) {
         this.id = id;
         this.materialLocation = material;
         this.template = template;
@@ -70,7 +70,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         boolean isWrench = stack.is(ExtendedItems.WRENCH.get()) || stack.is(AllItems.WRENCH.get());
         return isWrench &&
                 this.template.test(template) && this.addition.test(addition) &&
-                !ExtendedWrenchItem.hasMaterial(stack, materialLocation, part);
+                !ExtendedWrenchItem.hasMaterial(stack, part, materialLocation);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
             Ingredient base = Ingredient.fromJson(GsonHelper.getNonNull(json, "template"));
             Ingredient addition = Ingredient.fromJson(GsonHelper.getNonNull(json, "addition"));
             ResourceLocation materialLocation = ResourceLocation.parse(GsonHelper.getAsString(json, "material"));
-            String part = GsonHelper.getAsString(json, "part");
+            WrenchPart part = WrenchPart.getFromString(GsonHelper.getAsString(json, "part"));
             return new WrenchMaterialSwapRecipe(location, materialLocation, base, addition, part);
         }
 
@@ -117,14 +117,14 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
             Ingredient addition = Ingredient.fromNetwork(buffer);
             ResourceLocation materialLocation = buffer.readResourceLocation();
             String part = buffer.readUtf();
-            return new WrenchMaterialSwapRecipe(location, materialLocation, template, addition, part);
+            return new WrenchMaterialSwapRecipe(location, materialLocation, template, addition, WrenchPart.getFromString(part));
         }
 
         public void toNetwork(FriendlyByteBuf buffer, WrenchMaterialSwapRecipe recipe) {
             recipe.template.toNetwork(buffer);
             recipe.addition.toNetwork(buffer);
             buffer.writeResourceLocation(recipe.materialLocation);
-            buffer.writeUtf(recipe.part);
+            buffer.writeUtf(recipe.part.getSerializedName());
         }
     }
 
@@ -133,7 +133,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         private ResourceLocation materialLocation;
         private Ingredient template;
         private Ingredient addition;
-        private String part;
+        private WrenchPart part;
 
         public Builder(ResourceLocation id) {
             this.id = id;
@@ -162,7 +162,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
             return this;
         }
 
-        public Builder part(String part) {
+        public Builder part(WrenchPart part) {
             this.part = part;
             return this;
         }
@@ -176,7 +176,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
             json.addProperty("material", materialLocation.toString());
             json.add("template", template.toJson());
             json.add("addition", addition.toJson());
-            json.addProperty("part", part);
+            json.addProperty("part", part.getSerializedName());
         }
 
         @Override

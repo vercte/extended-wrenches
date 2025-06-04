@@ -35,8 +35,8 @@ public class ExtendedWrenchItemRenderer extends CustomRenderedItemModelRenderer 
     @Override
     protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer, ItemDisplayContext transformType,
                           PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        ResourceLocation headMaterial = ExtendedWrenchItem.getMaterialTexture(stack, "head");
-        ResourceLocation handleMaterial = ExtendedWrenchItem.getMaterialTexture(stack, "handle");
+        ResourceLocation headMaterial = ExtendedWrenchItem.getMaterialTexture(stack, WrenchPart.HEAD);
+        ResourceLocation handleMaterial = ExtendedWrenchItem.getMaterialTexture(stack, WrenchPart.HANDLE);
 
         BakedModel replaced = generateModel(model.getOriginalModel(), headMaterial, handleMaterial);
         renderer.render(replaced, light);

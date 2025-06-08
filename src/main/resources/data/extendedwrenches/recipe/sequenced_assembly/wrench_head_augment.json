@@ -18,7 +18,7 @@
         },
         [
           {
-            "tag": "forge:plates/brass"
+            "tag": "c:plates/brass"
           }
         ]
       ],
@@ -36,7 +36,7 @@
         },
         [
           {
-            "tag": "forge:plates/brass"
+            "tag": "c:plates/brass"
           }
         ]
       ],
@@ -60,7 +60,7 @@
       ]
     }
   ],
-  "transitionalItem": {
+  "transitional_item": {
     "id": "extendedwrenches:incomplete_wrench_head_augment"
   }
 }

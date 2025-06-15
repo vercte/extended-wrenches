@@ -27,6 +27,10 @@ public class ExtendedItems {
             .lang("Wrench Handle Augment")
             .register();
 
+    public static final ItemEntry<Item> WRENCH_COG_AUGMENT = REGISTRATE.item("wrench_cog_augment", Item::new)
+            .lang("Wrench Cog Augment")
+            .register();
+
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_WRENCH_HEAD_AUGMENT = REGISTRATE.item("incomplete_wrench_head_augment", SequencedAssemblyItem::new)
             .lang("Incomplete Wrench Head Augment")
             .register();
@@ -35,6 +39,7 @@ public class ExtendedItems {
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.getEntries().putAfter(new ItemStack(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE), WRENCH_HANDLE_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.getEntries().putAfter(WRENCH_HANDLE_AUGMENT.asStack(), WRENCH_HEAD_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.getEntries().putAfter(WRENCH_HEAD_AUGMENT.asStack(), WRENCH_COG_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }
 

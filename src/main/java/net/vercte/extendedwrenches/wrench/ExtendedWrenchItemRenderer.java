@@ -30,6 +30,7 @@ public class ExtendedWrenchItemRenderer extends CustomRenderedItemModelRenderer 
 
     public static final StitchedSprite HEAD_TEXTURE = new StitchedSprite(ExtendedWrenches.asResource("item/extended_wrench/head_materials/gold"));
     public static final StitchedSprite HANDLE_TEXTURE = new StitchedSprite(ExtendedWrenches.asResource("item/extended_wrench/handle_materials/dark_oak"));
+    public static final StitchedSprite COG_TEXTURE = new StitchedSprite(ExtendedWrenches.asResource("item/extended_wrench/cog_materials/spruce"));
     protected static final PartialModel GEAR = PartialModel.of(ExtendedWrenches.asResource("item/extended_wrench/gear"));
 
     @Override
@@ -37,19 +38,21 @@ public class ExtendedWrenchItemRenderer extends CustomRenderedItemModelRenderer 
                           PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         ResourceLocation headMaterial = ExtendedWrenchItem.getMaterialTexture(stack, WrenchPart.HEAD);
         ResourceLocation handleMaterial = ExtendedWrenchItem.getMaterialTexture(stack, WrenchPart.HANDLE);
+        ResourceLocation cogMaterial = ExtendedWrenchItem.getMaterialTexture(stack, WrenchPart.COG);
 
-        BakedModel replaced = generateModel(model.getOriginalModel(), headMaterial, handleMaterial);
-        renderer.render(replaced, light);
+        BakedModel replacedBody = generateBodyModel(model.getOriginalModel(), headMaterial, handleMaterial);
+        renderer.render(replacedBody, light);
 
         float xOffset = -1/16f;
         ms.translate(-xOffset, 0, 0);
         ms.mulPose(Axis.YP.rotationDegrees(ScrollValueHandler.getScroll(AnimationTickHolder.getPartialTicks())));
         ms.translate(xOffset, 0, 0);
 
-        renderer.render(GEAR.get(), light);
+        BakedModel replacedCog = generateCogModel(GEAR.get(), cogMaterial);
+        renderer.render(replacedCog, light);
     }
 
-    public static BakedModel generateModel(BakedModel template, @Nullable ResourceLocation headTexture, @Nullable ResourceLocation handleTexture) {
+    public static BakedModel generateBodyModel(BakedModel template, @Nullable ResourceLocation headTexture, @Nullable ResourceLocation handleTexture) {
         TextureAtlasSprite headReplacement = HEAD_TEXTURE.get();
         if(headTexture != null) {
             headReplacement = CACHED_TEXTURES.computeIfAbsent(headTexture.toString(), (s) -> Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(headTexture));
@@ -63,6 +66,18 @@ public class ExtendedWrenchItemRenderer extends CustomRenderedItemModelRenderer 
         Map<TextureAtlasSprite, TextureAtlasSprite> map = new Reference2ReferenceOpenHashMap<>();
         map.put(HEAD_TEXTURE.get(), headReplacement);
         map.put(HANDLE_TEXTURE.get(), handleReplacement);
+
+        return BakedModelHelper.generateModel(template, map::get);
+    }
+
+    public static BakedModel generateCogModel(BakedModel template, @Nullable ResourceLocation cogTexture) {
+        TextureAtlasSprite cogReplacement = COG_TEXTURE.get();
+        if(cogTexture != null) {
+            cogReplacement = CACHED_TEXTURES.computeIfAbsent(cogTexture.toString(), (s) -> Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(cogTexture));
+        }
+
+        Map<TextureAtlasSprite, TextureAtlasSprite> map = new Reference2ReferenceOpenHashMap<>();
+        map.put(COG_TEXTURE.get(), cogReplacement);
 
         return BakedModelHelper.generateModel(template, map::get);
     }

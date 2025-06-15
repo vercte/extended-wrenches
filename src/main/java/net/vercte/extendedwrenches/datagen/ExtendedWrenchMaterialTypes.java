@@ -120,6 +120,63 @@ public class ExtendedWrenchMaterialTypes {
                 .part(WrenchPart.HANDLE)
                 .build());
         // endregion
+
+        // region Cogs
+        register(ctx, "oak_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/oak")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "spruce_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/spruce")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "dark_oak_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/dark_oak")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "birch_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/birch")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "jungle_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/jungle")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "cherry_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/cherry")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "mangrove_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/mangrove")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "acacia_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/acacia")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "crimson_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/crimson")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "warped_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/warped")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "bamboo_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/bamboo")
+                .part(WrenchPart.COG)
+                .build());
+        // endregion
     }
 
     private static void register(BootstrapContext<WrenchMaterial> ctx, String name, WrenchMaterial type) {

@@ -57,6 +57,19 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         handle("oak_handle", Items.OAK_PLANKS);
         handle("spruce_handle", Items.SPRUCE_PLANKS);
         handle("warped_handle", Items.WARPED_PLANKS);
+
+        setFolder("wrench/cog");
+        cog("acacia_cog", Items.ACACIA_PLANKS);
+        cog("bamboo_cog", Items.BAMBOO_PLANKS);
+        cog("birch_cog", Items.BIRCH_PLANKS);
+        cog("cherry_cog", Items.CHERRY_PLANKS);
+        cog("crimson_cog", Items.CRIMSON_PLANKS);
+        cog("dark_oak_cog", Items.DARK_OAK_PLANKS);
+        cog("jungle_cog", Items.JUNGLE_PLANKS);
+        cog("mangrove_cog", Items.MANGROVE_PLANKS);
+        cog("oak_cog", Items.OAK_PLANKS);
+        cog("spruce_cog", Items.SPRUCE_PLANKS);
+        cog("warped_cog", Items.WARPED_PLANKS);
     }
 
     private void setFolder(String folder) {
@@ -85,6 +98,14 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
 
     private void handle(String material, Ingredient addition) {
         this.recipe(material, ExtendedItems.WRENCH_HANDLE_AUGMENT, addition, WrenchPart.HANDLE);
+    }
+
+    private void cog(String material, ItemLike... addition) {
+        this.cog(material, Ingredient.of(addition));
+    }
+
+    private void cog(String material, Ingredient addition) {
+        this.recipe(material, ExtendedItems.WRENCH_COG_AUGMENT, addition, WrenchPart.COG);
     }
 
     private void recipe(String material, ItemLike template, Ingredient addition, WrenchPart part) {

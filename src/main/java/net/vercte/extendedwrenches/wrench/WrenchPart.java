@@ -9,7 +9,8 @@ import java.util.function.IntFunction;
 
 public enum WrenchPart implements StringRepresentable {
     HEAD(0),
-    HANDLE(1);
+    HANDLE(1),
+    COG(2);
 
     private final int id;
     WrenchPart(int id) {

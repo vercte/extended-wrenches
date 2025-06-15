@@ -1,7 +1,5 @@
 package net.vercte.extendedwrenches;
 
-import com.tterrag.registrate.providers.ProviderType;
-import com.tterrag.registrate.providers.RegistrateDataProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -61,7 +59,5 @@ public class ExtendedWrenchesData {
             generator.addProvider(true, new ExtendedEntriesProvider(output, lookupProvider));
             generator.addProvider(true, new ExtendedWrenchSwapRecipeProvider(output, lookupProvider));
         }
-
-        event.getGenerator().addProvider(true, ExtendedWrenches.REGISTRATE.setDataProvider(new RegistrateDataProvider(ExtendedWrenches.REGISTRATE, ExtendedWrenches.ID, event)));
     }
 }

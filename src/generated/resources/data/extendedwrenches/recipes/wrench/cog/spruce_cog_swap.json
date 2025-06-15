@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "item": "minecraft:spruce_planks"
+  },
+  "material": "extendedwrenches:spruce_cog",
+  "part": "cog",
+  "template": {
+    "item": "extendedwrenches:wrench_cog_augment"
+  }
+}

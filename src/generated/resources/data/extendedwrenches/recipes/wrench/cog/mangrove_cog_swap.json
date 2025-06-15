@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "item": "minecraft:mangrove_planks"
+  },
+  "material": "extendedwrenches:mangrove_cog",
+  "part": "cog",
+  "template": {
+    "item": "extendedwrenches:wrench_cog_augment"
+  }
+}

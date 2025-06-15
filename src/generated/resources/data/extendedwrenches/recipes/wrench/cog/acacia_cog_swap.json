@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "item": "minecraft:acacia_planks"
+  },
+  "material": "extendedwrenches:acacia_cog",
+  "part": "cog",
+  "template": {
+    "item": "extendedwrenches:wrench_cog_augment"
+  }
+}

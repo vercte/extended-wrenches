@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "item": "minecraft:dark_oak_planks"
+  },
+  "material": "extendedwrenches:dark_oak_cog",
+  "part": "cog",
+  "template": {
+    "item": "extendedwrenches:wrench_cog_augment"
+  }
+}

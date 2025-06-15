@@ -8,13 +8,13 @@
   ],
   "key": {
     "c": {
-      "tag": "c:plates/copper"
+      "tag": "forge:plates/copper"
     },
     "t": {
       "tag": "minecraft:trim_templates"
     }
   },
   "result": {
-    "id": "extendedwrenches:wrench_cog_augment"
+    "item": "extendedwrenches:wrench_cog_augment"
   }
 }

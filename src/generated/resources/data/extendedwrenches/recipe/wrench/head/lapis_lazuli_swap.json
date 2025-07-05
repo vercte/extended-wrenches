@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "item": "minecraft:lapis_lazuli"
+  },
+  "material": "extendedwrenches:lapis_lazuli",
+  "part": "head",
+  "template": {
+    "item": "extendedwrenches:wrench_head_augment"
+  }
+}

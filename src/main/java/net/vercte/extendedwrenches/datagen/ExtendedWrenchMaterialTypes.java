@@ -62,6 +62,15 @@ public class ExtendedWrenchMaterialTypes {
                 .part(WrenchPart.HEAD)
                 .build());
 
+        register(ctx, "quartz", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/quartz")
+                .part(WrenchPart.HEAD)
+                .build());
+
+        register(ctx, "lapis_lazuli", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/lapis_lazuli")
+                .part(WrenchPart.HEAD)
+                .build());
         // endregion
 
         // region Handles

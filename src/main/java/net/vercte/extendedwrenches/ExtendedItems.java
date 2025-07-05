@@ -38,7 +38,7 @@ public class ExtendedItems {
 
     public static void addToCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.insertAfter(new ItemStack(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE), WRENCH_HANDLE_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.insertAfter(new ItemStack(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE), WRENCH_HANDLE_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.insertAfter(WRENCH_HANDLE_AUGMENT.asStack(), WRENCH_HEAD_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.insertAfter(WRENCH_HEAD_AUGMENT.asStack(), WRENCH_COG_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }

@@ -11,7 +11,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
+import net.vercte.extendedwrenches.compat.ModCompat;
 import org.slf4j.Logger;
 
 @Mod(ExtendedWrenches.ID)
@@ -27,6 +29,7 @@ public class ExtendedWrenches {
     public ExtendedWrenches(IEventBus modEventBus) {
         ExtendedItems.init();
         ExtendedWrenchesData.register(modEventBus);
+        everyCompatModule();
 
         modEventBus.addListener(ExtendedItems::addToCreative);
         modEventBus.addListener(ExtendedWrenchesData::registerDatapackRegistries);
@@ -38,5 +41,17 @@ public class ExtendedWrenches {
 
     public static ResourceLocation asResource(String path) {
         return ResourceLocation.fromNamespaceAndPath(ID, path);
+    }
+
+    private static void everyCompatModule() {
+        try {
+            if (ModList.get().isLoaded("everycomp")) {
+                ModCompat.init();
+            } else {
+                LOGGER.info("EveryCompat module is not loaded");
+            }
+        } catch (Exception e) {
+            LOGGER.error("Failed to start EveryComp module", e);
+        }
     }
 }

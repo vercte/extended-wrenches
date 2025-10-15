@@ -23,6 +23,12 @@ repositories {
     maven { url = "https://mvn.devos.one/snapshots" } // Registrate
     maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // ForgeConfigAPIPort
     maven { url = "https://maven.blamejared.com" } // JEI
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    } // Every Compat
 }
 
 base {
@@ -126,6 +132,9 @@ dependencies {
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    compileOnly "curse.maven:selene-499980:7100673" // Moonlight Lib
+    compileOnly "curse.maven:every-compat-628539:7086457"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

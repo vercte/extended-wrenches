@@ -33,3 +33,10 @@ type="required"
 versionRange="[6.0.4,6.0.7)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies."${mod_id}"]]
+modId="everycomp"
+type="optional"
+versionRange="[1.21-2.11.2,)"
+ordering="NONE"
+side="BOTH"

@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.mehvahdjukaar.every_compat.EveryCompat;
 import net.mehvahdjukaar.every_compat.api.SimpleModule;
+import net.mehvahdjukaar.every_compat.misc.HardcodedBlockType;
+import net.mehvahdjukaar.moonlight.api.integration.HardcodedBlockTypes;
 import net.mehvahdjukaar.moonlight.api.resources.RPUtils;
 import net.mehvahdjukaar.moonlight.api.resources.ResType;
 import net.mehvahdjukaar.moonlight.api.resources.pack.ResourceGenTask;
@@ -32,10 +34,10 @@ public class WoodGood extends SimpleModule {
     @Override
     public void addDynamicClientResources(Consumer<ResourceGenTask> executor) {
         super.addDynamicClientResources(executor);
-        ExtendedWrenches.LOGGER.info("addDynamicClientResources");
+        // ExtendedWrenches.LOGGER.info("addDynamicClientResources");
         executor.accept((manager, sink) -> {
             for(WoodType woodType : WoodTypeRegistry.INSTANCE) {
-                if(woodType.isVanilla()) continue;
+                if(HardcodedBlockType.isKnownVanillaWood(woodType)) continue;
                 // ExtendedWrenches.LOGGER.info("woodType {}", woodType.id);
                 try (
                         TextureImage cogTexture = TextureImage.open(manager,
@@ -70,7 +72,7 @@ public class WoodGood extends SimpleModule {
         // ExtendedWrenches.LOGGER.info("addDynamicServerResources");
         executor.accept((manager, sink) -> {
             for(WoodType woodType : WoodTypeRegistry.INSTANCE) {
-                if(woodType.isVanilla()) continue;
+                if(HardcodedBlockType.isKnownVanillaWood(woodType)) continue;
                 // ExtendedWrenches.LOGGER.info("woodType {}", woodType.id);
                 JsonObject cogMaterial = new JsonObject();
                 cogMaterial.add("part", new JsonPrimitive("cog"));

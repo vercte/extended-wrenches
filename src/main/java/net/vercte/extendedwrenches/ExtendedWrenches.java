@@ -12,8 +12,10 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.vercte.extendedwrenches.compat.ModCompat;
 import org.slf4j.Logger;
 
 @Mod(ExtendedWrenches.ID)
@@ -30,6 +32,7 @@ public class ExtendedWrenches {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ExtendedItems.init();
+        everyCompatModule();
 
         modEventBus.addListener(ExtendedItems::addToCreative);
         modEventBus.addListener(ExtendedWrenchesData::registerDatapackRegistries);
@@ -42,5 +45,18 @@ public class ExtendedWrenches {
 
     public static ResourceLocation asResource(String path) {
         return new ResourceLocation(ID, path);
+    }
+
+    private static void everyCompatModule() {
+        try {
+            if (ModList.get().isLoaded("everycomp")) {
+                ModCompat.init();
+                LOGGER.info("Every Compat found, starting compatibility");
+            } else {
+                LOGGER.info("Every Compat is not installed");
+            }
+        } catch (Exception e) {
+            LOGGER.error("Failed to start EveryComp module", e);
+        }
     }
 }

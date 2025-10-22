@@ -103,6 +103,12 @@ repositories {
     maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // ForgeConfigAPIPort
     maven { url = "https://maven.blamejared.com" } // JEI
     maven { url = "https://maven.terraformersmc.com/" } // EMI
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    } // Every Compat
 }
 
 dependencies {
@@ -127,6 +133,10 @@ dependencies {
 
 //    compileOnly fg.deobf("dev.emi:emi-forge:${emi_version}:api")
 //    runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
+
+    compileOnly fg.deobf("curse.maven:selene-499980:7072721") // Moonlight Lib
+    compileOnly fg.deobf("curse.maven:every-compat-628539:7108490")
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

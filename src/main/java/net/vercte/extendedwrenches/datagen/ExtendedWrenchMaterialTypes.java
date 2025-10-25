@@ -71,6 +71,11 @@ public class ExtendedWrenchMaterialTypes {
                 .texture("item/extended_wrench/head_materials/lapis_lazuli")
                 .part(WrenchPart.HEAD)
                 .build());
+
+        register(ctx, "netherite", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/netherite")
+                .part(WrenchPart.HEAD)
+                .build());
         // endregion
 
         // region Handles

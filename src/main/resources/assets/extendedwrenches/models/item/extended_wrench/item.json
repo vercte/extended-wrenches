@@ -1,37 +1,57 @@
 {
+	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"1": "extendedwrenches:item/extended_wrench/head_materials/gold",
-		"2": "extendedwrenches:item/extended_wrench/handle_materials/dark_oak",
+		"3": "extendedwrenches:item/extended_wrench/head_materials/gold",
+		"4": "extendedwrenches:item/extended_wrench/handle_materials/dark_oak",
 		"5": "extendedwrenches:item/extended_wrench/base",
 		"particle": "extendedwrenches:item/extended_wrench/base"
 	},
 	"elements": [
 		{
-			"name": "handle",
+			"name": "wood in bottom clamp",
+			"from": [7, 12, 7.5],
+			"to": [10, 12.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 10.5, 7]},
+			"faces": {
+				"down": {"uv": [9.5, 0, 6.5, 1], "texture": "#4"}
+			}
+		},
+		{
+			"name": "wood in top clamp",
+			"from": [7, 14.5, 7.5],
+			"to": [10, 15, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 13, 7]},
+			"faces": {
+				"west": {"uv": [8.5, 3, 9.5, 3.5], "texture": "#4"},
+				"up": {"uv": [9.5, 3, 6.5, 2], "texture": "#4"}
+			}
+		},
+		{
+			"name": "bottom part of the handle",
 			"from": [7.6, 0, 7.5],
 			"to": [8.6, 1, 8.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 11, 8]},
 			"faces": {
-				"north": {"uv": [0, 12, 2, 14], "texture": "#2"},
-				"east": {"uv": [0, 12, 2, 14], "texture": "#2"},
-				"south": {"uv": [0, 12, 2, 14], "texture": "#2"},
-				"west": {"uv": [0, 12, 2, 14], "texture": "#2"},
-				"down": {"uv": [0, 12, 2, 14], "texture": "#2"}
+				"north": {"uv": [6.5, 8, 7.5, 9], "texture": "#4"},
+				"east": {"uv": [7.5, 8, 8.5, 9], "texture": "#4"},
+				"south": {"uv": [8.5, 8, 9.5, 9], "texture": "#4"},
+				"west": {"uv": [9.5, 8, 10.5, 9], "texture": "#4"},
+				"down": {"uv": [9.5, 7, 8.5, 8], "texture": "#4"}
 			}
 		},
 		{
-			"name": "handle",
+			"name": "top part of the handle",
 			"from": [7.6, 5, 7.5],
 			"to": [8.6, 7, 8.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 11, 8]},
 			"faces": {
-				"north": {"uv": [0, 0, 2, 4], "texture": "#2"},
-				"east": {"uv": [0, 0, 2, 4], "texture": "#2"},
-				"south": {"uv": [0, 0, 2, 4], "texture": "#2"},
-				"west": {"uv": [0, 0, 2, 4], "texture": "#2"},
-				"down": {"uv": [0, 12, 2, 14], "texture": "#2"}
+				"north": {"uv": [6.5, 5, 7.5, 7], "texture": "#4"},
+				"east": {"uv": [7.5, 5, 8.5, 7], "texture": "#4"},
+				"south": {"uv": [8.5, 5, 9.5, 7], "texture": "#4"},
+				"west": {"uv": [9.5, 5, 10.5, 7], "texture": "#4"},
+				"down": {"uv": [9.5, 4, 8.5, 5], "texture": "#4"}
 			}
 		},
 		{
@@ -40,12 +60,68 @@
 			"to": [8.5, 14.5, 8.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 20, 8]},
 			"faces": {
-				"north": {"uv": [6, 0, 10, 12], "texture": "#2"},
-				"east": {"uv": [8, 0, 10, 12], "texture": "#2"},
-				"south": {"uv": [10, 0, 6, 12], "texture": "#2"},
-				"west": {"uv": [10, 0, 8, 12], "texture": "#2"},
-				"up": {"uv": [6, 12, 10, 14], "rotation": 90, "texture": "#2"},
-				"down": {"uv": [6, 14, 10, 16], "texture": "#2"}
+				"north": {"uv": [0, 1, 2, 7], "texture": "#4"},
+				"east": {"uv": [2, 1, 3, 7], "texture": "#4"},
+				"south": {"uv": [3, 1, 5, 7], "texture": "#4"},
+				"west": {"uv": [5, 1, 6, 7], "texture": "#4"},
+				"up": {"uv": [3, 1, 1, 0], "texture": "#4"},
+				"down": {"uv": [5, 0, 3, 1], "texture": "#4"}
+			}
+		},
+		{
+			"name": "gear case",
+			"from": [7.5, 6, 7],
+			"to": [9.5, 7, 9],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8.5, 11, 8]},
+			"faces": {
+				"north": {"uv": [0, 9.5, 2, 10.5], "texture": "#4"},
+				"east": {"uv": [2, 9.5, 4, 10.5], "texture": "#4"},
+				"south": {"uv": [4, 9.5, 6, 10.5], "texture": "#4"},
+				"west": {"uv": [6, 9.5, 8, 10.5], "texture": "#4"},
+				"up": {"uv": [4, 9.5, 2, 7.5], "texture": "#4"},
+				"down": {"uv": [6, 7.5, 4, 9.5], "texture": "#4"}
+			}
+		},
+		{
+			"name": "bottom clamp",
+			"from": [8, 12, 7],
+			"to": [11, 13, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 11, 7]},
+			"faces": {
+				"north": {"uv": [2, 10, 5, 11], "texture": "#3"},
+				"east": {"uv": [0, 10, 2, 11], "texture": "#3"},
+				"south": {"uv": [7, 10, 10, 11], "texture": "#3"},
+				"west": {"uv": [5, 10, 7, 11], "texture": "#3"},
+				"up": {"uv": [5, 10, 2, 8], "texture": "#3"},
+				"down": {"uv": [8, 8, 5, 10], "texture": "#3"}
+			}
+		},
+		{
+			"name": "top clamp",
+			"from": [7, 14, 7],
+			"to": [11, 15, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 11, 7]},
+			"faces": {
+				"north": {"uv": [2, 2, 6, 3], "texture": "#3"},
+				"east": {"uv": [0, 2, 2, 3], "texture": "#3"},
+				"south": {"uv": [8, 2, 12, 3], "texture": "#3"},
+				"west": {"uv": [6, 2, 8, 3], "texture": "#3"},
+				"up": {"uv": [6, 2, 2, 0], "texture": "#3"},
+				"down": {"uv": [10, 0, 6, 2], "texture": "#3"}
+			}
+		},
+		{
+			"name": "gear case top",
+			"from": [6.4, 8, 7],
+			"to": [10.4, 9, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9, 11, 8]},
+			"faces": {
+				"north": {"uv": [2, 6, 6, 7], "texture": "#3"},
+				"east": {"uv": [0, 6, 2, 7], "texture": "#3"},
+				"south": {"uv": [8, 6, 12, 7], "texture": "#3"},
+				"west": {"uv": [6, 6, 8, 7], "texture": "#3"},
+				"up": {"uv": [6, 6, 2, 4], "texture": "#3"},
+				"down": {"uv": [10, 4, 6, 6], "texture": "#3"}
 			}
 		},
 		{
@@ -63,48 +139,6 @@
 			}
 		},
 		{
-			"name": "top thing",
-			"from": [7, 14, 7],
-			"to": [11, 15, 9],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 11, 7]},
-			"faces": {
-				"north": {"uv": [0, 8, 8, 10], "texture": "#1"},
-				"east": {"uv": [0, 0, 4, 2], "texture": "#1"},
-				"south": {"uv": [8, 8, 0, 10], "texture": "#1"},
-				"west": {"uv": [0, 6, 4, 8], "rotation": 180, "texture": "#1"},
-				"up": {"uv": [0, 0, 4, 8], "rotation": 90, "texture": "#1"},
-				"down": {"uv": [4, 0, 8, 8], "rotation": 90, "texture": "#1"}
-			}
-		},
-		{
-			"name": "bottom thing",
-			"from": [8, 12, 7],
-			"to": [11, 13, 9],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 11, 7]},
-			"faces": {
-				"north": {"uv": [6, 8, 0, 10], "rotation": 180, "texture": "#1"},
-				"east": {"uv": [0, 0, 4, 2], "rotation": 180, "texture": "#1"},
-				"south": {"uv": [0, 8, 6, 10], "rotation": 180, "texture": "#1"},
-				"west": {"uv": [0, 6, 4, 8], "texture": "#1"},
-				"up": {"uv": [4, 0, 8, 6], "rotation": 90, "texture": "#1"},
-				"down": {"uv": [0, 0, 4, 6], "rotation": 90, "texture": "#1"}
-			}
-		},
-		{
-			"name": "gear case top",
-			"from": [6.4, 8, 7],
-			"to": [10.4, 9, 9],
-			"rotation": {"angle": 0, "axis": "y", "origin": [9, 11, 8]},
-			"faces": {
-				"north": {"uv": [8, 0, 16, 2], "texture": "#1"},
-				"east": {"uv": [12, 12, 14, 16], "rotation": 90, "texture": "#1"},
-				"south": {"uv": [16, 10, 8, 12], "texture": "#1"},
-				"west": {"uv": [14, 12, 16, 16], "rotation": 90, "texture": "#1"},
-				"up": {"uv": [8, 6, 16, 10], "rotation": 180, "texture": "#1"},
-				"down": {"uv": [8, 2, 16, 6], "rotation": 180, "texture": "#1"}
-			}
-		},
-		{
 			"name": "grip",
 			"from": [7.5, 0.9, 7.4],
 			"to": [8.7, 5.1, 8.6],
@@ -116,39 +150,6 @@
 				"west": {"uv": [2, 4, 4, 12], "texture": "#5", "tintindex": 0},
 				"up": {"uv": [2, 5, 4, 7], "texture": "#5", "tintindex": 0},
 				"down": {"uv": [2, 10, 4, 12], "texture": "#5", "tintindex": 0}
-			}
-		},
-		{
-			"name": "gear case",
-			"from": [7.5, 6, 7],
-			"to": [9.5, 7, 9],
-			"rotation": {"angle": 45, "axis": "y", "origin": [8.5, 11, 8]},
-			"faces": {
-				"north": {"uv": [6, 12, 10, 14], "texture": "#2"},
-				"east": {"uv": [6, 12, 10, 14], "texture": "#2"},
-				"south": {"uv": [6, 12, 10, 14], "texture": "#2"},
-				"west": {"uv": [6, 12, 10, 14], "texture": "#2"},
-				"up": {"uv": [6, 12, 10, 16], "texture": "#2"},
-				"down": {"uv": [6, 12, 10, 16], "texture": "#2"}
-			}
-		},
-		{
-			"name": "wood top clamp",
-			"from": [7, 14.5, 7.5],
-			"to": [10, 15, 8.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 13, 7]},
-			"faces": {
-				"west": {"uv": [5, 7, 3, 8], "texture": "#2"},
-				"up": {"uv": [5, 8, 3, 2], "rotation": 270, "texture": "#2"}
-			}
-		},
-		{
-			"name": "wood bottom clamp",
-			"from": [7, 12, 7.5],
-			"to": [10, 12.5, 8.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 10.5, 7]},
-			"faces": {
-				"down": {"uv": [3, 2, 5, 8], "rotation": 90, "texture": "#2"}
 			}
 		}
 	],
@@ -166,7 +167,7 @@
 			"translation": [1, 4, 1]
 		},
 		"firstperson_lefthand": {
-			"rotation": [17.25, 267, 10],
+			"rotation": [17.25, -93, 10],
 			"translation": [1, 4, 1]
 		},
 		"ground": {
@@ -180,7 +181,7 @@
 			"scale": [1.09453, 1.09453, 1.09453]
 		},
 		"fixed": {
-			"rotation": [0, 180, 0],
+			"rotation": [0, -180, 0],
 			"translation": [0.5, 0.5, -0.75]
 		}
 	},
@@ -189,7 +190,22 @@
 			"name": "item",
 			"origin": [8, 8, 8],
 			"color": 0,
-			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+			"children": [
+				{
+					"name": "wood",
+					"origin": [7, 10.5, 7],
+					"color": 0,
+					"children": [0, 1, 2, 3, 4, 5]
+				},
+				{
+					"name": "head",
+					"origin": [8.5, 11, 7],
+					"color": 0,
+					"children": [6, 7, 8]
+				},
+				9,
+				10
+			]
 		}
 	]
 }

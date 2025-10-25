@@ -46,6 +46,7 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         head("zinc_head", common("ingots/zinc"));
         head("quartz", Items.QUARTZ);
         head("lapis_lazuli", Items.LAPIS_LAZULI);
+        head("netherite", Items.NETHERITE_INGOT);
 
         setFolder("wrench/handle");
         handle("acacia_handle", Items.ACACIA_PLANKS);

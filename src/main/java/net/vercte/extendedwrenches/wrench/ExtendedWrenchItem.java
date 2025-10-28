@@ -41,7 +41,8 @@ public class ExtendedWrenchItem extends WrenchItem {
             String locString = material.toString();
             if(part == WrenchPart.HEAD && locString.equals("extendedwrenches:gold_head")) return true;
             if(part == WrenchPart.HANDLE && locString.equals("extendedwrenches:dark_oak_handle")) return true;
-            return part == WrenchPart.COG && locString.equals("extendedwrenches:spruce");
+            if(part == WrenchPart.COG && locString.equals("extendedwrenches:spruce_cog")) return true;
+            return part == WrenchPart.AXIS && locString.equals("extendedwrenches:andesite_axis");
         }
 
         return false;

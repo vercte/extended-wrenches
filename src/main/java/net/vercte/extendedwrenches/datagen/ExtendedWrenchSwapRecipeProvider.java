@@ -1,5 +1,6 @@
 package net.vercte.extendedwrenches.datagen;
 
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -73,6 +74,11 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         cog("oak_cog", Items.OAK_PLANKS);
         cog("spruce_cog", Items.SPRUCE_PLANKS);
         cog("warped_cog", Items.WARPED_PLANKS);
+
+        setFolder("wrench/axis");
+        axis("andesite_axis", Items.ANDESITE);
+        axis("diorite_axis", Items.DIORITE); // never seen this block before, but I guess I'm adding it
+        axis("granite_axis", Items.GRANITE);
     }
 
     private void setFolder(String folder) {
@@ -109,6 +115,15 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
 
     private void cog(String material, Ingredient addition) {
         this.recipe(material, ExtendedItems.WRENCH_COG_AUGMENT, addition, WrenchPart.COG);
+    }
+
+    private void axis(String material, ItemLike... addition) {
+        this.axis(material, Ingredient.of(addition));
+    }
+
+    private void axis(String material, Ingredient addition) {
+        // TODO: Make augment
+        this.recipe(material, AllBlocks.SHAFT, addition, WrenchPart.AXIS);
     }
 
     private void recipe(String material, ItemLike template, Ingredient addition, WrenchPart part) {

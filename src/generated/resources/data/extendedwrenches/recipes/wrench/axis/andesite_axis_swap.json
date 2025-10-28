@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "item": "minecraft:andesite"
+  },
+  "material": "extendedwrenches:andesite_axis",
+  "part": "axis",
+  "template": {
+    "item": "create:shaft"
+  }
+}

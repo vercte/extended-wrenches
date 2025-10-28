@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "item": "minecraft:granite"
+  },
+  "material": "extendedwrenches:granite_axis",
+  "part": "axis",
+  "template": {
+    "item": "create:shaft"
+  }
+}

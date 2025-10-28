@@ -191,6 +191,23 @@ public class ExtendedWrenchMaterialTypes {
                 .part(WrenchPart.COG)
                 .build());
         // endregion
+
+        // region Axes (plural of axis)
+        register(ctx, "andesite_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/andesite")
+                .part(WrenchPart.AXIS)
+                .build());
+
+        register(ctx, "diorite_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/diorite")
+                .part(WrenchPart.AXIS)
+                .build());
+
+        register(ctx, "granite_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/granite")
+                .part(WrenchPart.AXIS)
+                .build());
+        // endregion
     }
 
     private static void register(BootstapContext<WrenchMaterial> ctx, String name, WrenchMaterial type) {

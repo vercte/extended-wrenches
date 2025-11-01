@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "item": "minecraft:bone"
+  },
+  "material": "extendedwrenches:bone_axis",
+  "part": "axis",
+  "template": {
+    "item": "extendedwrenches:wrench_axis_augment"
+  }
+}

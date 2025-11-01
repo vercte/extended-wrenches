@@ -31,8 +31,14 @@ repositories {
     } // Every Compat
 }
 
+boolean dev = System.getenv('RELEASE') == null || System.getenv('RELEASE').aquals('false')
+ext.buildNumber = System.getenv('BUILD_NUMBER')
+String gitHash = "${calculateGitHash() + (hasUnstaged() ? "-modified" : "")}"
+
 base {
     archivesName = "${mod_id}-${minecraft_version}"
+    group = 'net.vercte.extendedwrenches'
+    version = mod_version + (dev && buildNumber != null ? "-${buildNumber}" : '')
 }
 
 // Mojang ships Java 21 to end users starting in 1.20.5, so mods should target Java 21.
@@ -145,6 +151,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             minecraft_version_range: minecraft_version_range,
             neo_version            : neo_version,
             neo_version_range      : neo_version_range,
+            create_version_range   : create_version_range,
             loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,

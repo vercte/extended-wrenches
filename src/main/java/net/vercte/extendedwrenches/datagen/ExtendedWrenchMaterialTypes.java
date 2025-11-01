@@ -72,8 +72,43 @@ public class ExtendedWrenchMaterialTypes {
                 .part(WrenchPart.HEAD)
                 .build());
 
-        register(ctx, "netherite", new WrenchMaterial.Builder()
+        register(ctx, "netherite_head", new WrenchMaterial.Builder()
                 .texture("item/extended_wrench/head_materials/netherite")
+                .part(WrenchPart.HEAD)
+                .build());
+
+        register(ctx, "asurine_head", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/asurine")
+                .part(WrenchPart.HEAD)
+                .build());
+
+        register(ctx, "crimsite_head", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/crimsite")
+                .part(WrenchPart.HEAD)
+                .build());
+
+        register(ctx, "ochrum_head", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/ochrum")
+                .part(WrenchPart.HEAD)
+                .build());
+
+        register(ctx, "veridium_head", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/veridium")
+                .part(WrenchPart.HEAD)
+                .build());
+
+        register(ctx, "scorchia_head", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/scorchia")
+                .part(WrenchPart.HEAD)
+                .build());
+
+        register(ctx, "scoria_head", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/scoria")
+                .part(WrenchPart.HEAD)
+                .build());
+
+        register(ctx, "spooky_head", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/head_materials/spooky")
                 .part(WrenchPart.HEAD)
                 .build());
         // endregion
@@ -133,6 +168,36 @@ public class ExtendedWrenchMaterialTypes {
                 .texture("item/extended_wrench/handle_materials/bamboo")
                 .part(WrenchPart.HANDLE)
                 .build());
+
+        register(ctx, "asurine_handle", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/handle_materials/asurine")
+                .part(WrenchPart.HANDLE)
+                .build());
+
+        register(ctx, "crimsite_handle", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/handle_materials/crimsite")
+                .part(WrenchPart.HANDLE)
+                .build());
+
+        register(ctx, "ochrum_handle", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/handle_materials/ochrum")
+                .part(WrenchPart.HANDLE)
+                .build());
+
+        register(ctx, "veridium_handle", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/handle_materials/veridium")
+                .part(WrenchPart.HANDLE)
+                .build());
+
+        register(ctx, "scorchia_handle", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/handle_materials/scorchia")
+                .part(WrenchPart.HANDLE)
+                .build());
+
+        register(ctx, "scoria_handle", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/handle_materials/scoria")
+                .part(WrenchPart.HANDLE)
+                .build());
         // endregion
 
         // region Cogs
@@ -190,6 +255,41 @@ public class ExtendedWrenchMaterialTypes {
                 .texture("item/extended_wrench/cog_materials/bamboo")
                 .part(WrenchPart.COG)
                 .build());
+
+        register(ctx, "asurine_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/asurine")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "crimsite_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/crimsite")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "ochrum_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/ochrum")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "veridium_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/veridium")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "scorchia_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/scorchia")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "scoria_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/scoria")
+                .part(WrenchPart.COG)
+                .build());
+
+        register(ctx, "bone_cog", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/cog_materials/bone")
+                .part(WrenchPart.COG)
+                .build());
         // endregion
 
         // region Axes (plural of axis)
@@ -205,6 +305,41 @@ public class ExtendedWrenchMaterialTypes {
 
         register(ctx, "granite_axis", new WrenchMaterial.Builder()
                 .texture("item/extended_wrench/axis_materials/granite")
+                .part(WrenchPart.AXIS)
+                .build());
+
+        register(ctx, "asurine_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/asurine")
+                .part(WrenchPart.AXIS)
+                .build());
+
+        register(ctx, "crimsite_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/crimsite")
+                .part(WrenchPart.AXIS)
+                .build());
+
+        register(ctx, "ochrum_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/ochrum")
+                .part(WrenchPart.AXIS)
+                .build());
+
+        register(ctx, "veridium_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/veridium")
+                .part(WrenchPart.AXIS)
+                .build());
+
+        register(ctx, "scorchia_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/scorchia")
+                .part(WrenchPart.AXIS)
+                .build());
+
+        register(ctx, "scoria_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/scoria")
+                .part(WrenchPart.AXIS)
+                .build());
+
+        register(ctx, "bone_axis", new WrenchMaterial.Builder()
+                .texture("item/extended_wrench/axis_materials/bone")
                 .part(WrenchPart.AXIS)
                 .build());
         // endregion

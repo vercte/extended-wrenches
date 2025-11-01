@@ -1,7 +1,7 @@
 package net.vercte.extendedwrenches.datagen;
 
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
+import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -47,7 +47,14 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         head("zinc_head", common("ingots/zinc"));
         head("quartz", Items.QUARTZ);
         head("lapis_lazuli", Items.LAPIS_LAZULI);
-        head("netherite", Items.NETHERITE_INGOT);
+        head("netherite_head", Items.NETHERITE_INGOT);
+        head("asurine_head", AllPaletteStoneTypes.ASURINE.materialTag);
+        head("crimsite_head", AllPaletteStoneTypes.CRIMSITE.materialTag);
+        head("veridium_head", AllPaletteStoneTypes.VERIDIUM.materialTag);
+        head("ochrum_head", AllPaletteStoneTypes.OCHRUM.materialTag);
+        head("scorchia_head", AllPaletteStoneTypes.SCORCHIA.materialTag);
+        head("scoria_head", AllPaletteStoneTypes.SCORIA.materialTag);
+        head("spooky_head", Items.SKELETON_SKULL);
 
         setFolder("wrench/handle");
         handle("acacia_handle", Items.ACACIA_PLANKS);
@@ -61,6 +68,12 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         handle("oak_handle", Items.OAK_PLANKS);
         handle("spruce_handle", Items.SPRUCE_PLANKS);
         handle("warped_handle", Items.WARPED_PLANKS);
+        handle("asurine_handle", AllPaletteStoneTypes.ASURINE.materialTag);
+        handle("crimsite_handle", AllPaletteStoneTypes.CRIMSITE.materialTag);
+        handle("veridium_handle", AllPaletteStoneTypes.VERIDIUM.materialTag);
+        handle("ochrum_handle", AllPaletteStoneTypes.OCHRUM.materialTag);
+        handle("scorchia_handle", AllPaletteStoneTypes.SCORCHIA.materialTag);
+        handle("scoria_handle", AllPaletteStoneTypes.SCORIA.materialTag);
 
         setFolder("wrench/cog");
         cog("acacia_cog", Items.ACACIA_PLANKS);
@@ -74,11 +87,25 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         cog("oak_cog", Items.OAK_PLANKS);
         cog("spruce_cog", Items.SPRUCE_PLANKS);
         cog("warped_cog", Items.WARPED_PLANKS);
+        cog("asurine_cog", AllPaletteStoneTypes.ASURINE.materialTag);
+        cog("crimsite_cog", AllPaletteStoneTypes.CRIMSITE.materialTag);
+        cog("veridium_cog", AllPaletteStoneTypes.VERIDIUM.materialTag);
+        cog("ochrum_cog", AllPaletteStoneTypes.OCHRUM.materialTag);
+        cog("scorchia_cog", AllPaletteStoneTypes.SCORCHIA.materialTag);
+        cog("scoria_cog", AllPaletteStoneTypes.SCORIA.materialTag);
+        cog("bone_cog", Items.BONE);
 
         setFolder("wrench/axis");
         axis("andesite_axis", Items.ANDESITE);
         axis("diorite_axis", Items.DIORITE); // never seen this block before, but I guess I'm adding it
         axis("granite_axis", Items.GRANITE);
+        axis("asurine_axis", AllPaletteStoneTypes.ASURINE.materialTag);
+        axis("crimsite_axis", AllPaletteStoneTypes.CRIMSITE.materialTag);
+        axis("veridium_axis", AllPaletteStoneTypes.VERIDIUM.materialTag);
+        axis("ochrum_axis", AllPaletteStoneTypes.OCHRUM.materialTag);
+        axis("scorchia_axis", AllPaletteStoneTypes.SCORCHIA.materialTag);
+        axis("scoria_axis", AllPaletteStoneTypes.SCORIA.materialTag);
+        axis("bone_axis", Items.BONE);
     }
 
     private void setFolder(String folder) {
@@ -107,6 +134,10 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         this.handle(material, Ingredient.of(addition));
     }
 
+    private void handle(String material, TagKey<Item> addition) {
+        this.handle(material, Ingredient.of(addition));
+    }
+
     private void handle(String material, Ingredient addition) {
         this.recipe(material, ExtendedItems.WRENCH_HANDLE_AUGMENT, addition, WrenchPart.HANDLE);
     }
@@ -115,17 +146,22 @@ public class ExtendedWrenchSwapRecipeProvider extends RecipeProvider {
         this.cog(material, Ingredient.of(addition));
     }
 
+    private void cog(String material, TagKey<Item> addition) {
+        this.cog(material, Ingredient.of(addition));
+    }
+
     private void cog(String material, Ingredient addition) {
         this.recipe(material, ExtendedItems.WRENCH_COG_AUGMENT, addition, WrenchPart.COG);
     }
 
-    private void axis(String material, ItemLike... addition) {
+    private void axis(String material, ItemLike... addition) { this.axis(material, Ingredient.of(addition)); }
+
+    private void axis(String material, TagKey<Item> addition) {
         this.axis(material, Ingredient.of(addition));
     }
 
     private void axis(String material, Ingredient addition) {
-        // TODO: Make augment
-        this.recipe(material, AllBlocks.SHAFT, addition, WrenchPart.AXIS);
+        this.recipe(material, ExtendedItems.WRENCH_AXIS_AUGMENT, addition, WrenchPart.AXIS);
     }
 
     private void recipe(String material, ItemLike template, Ingredient addition, WrenchPart part) {

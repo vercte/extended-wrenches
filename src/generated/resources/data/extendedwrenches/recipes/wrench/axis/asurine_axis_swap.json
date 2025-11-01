@@ -1,0 +1,11 @@
+{
+  "type": "extendedwrenches:wrench_material_swap",
+  "addition": {
+    "tag": "create:stone_types/asurine"
+  },
+  "material": "extendedwrenches:asurine_axis",
+  "part": "axis",
+  "template": {
+    "item": "extendedwrenches:wrench_axis_augment"
+  }
+}

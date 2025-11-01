@@ -6,6 +6,6 @@
   "material": "extendedwrenches:granite_axis",
   "part": "axis",
   "template": {
-    "item": "create:shaft"
+    "item": "extendedwrenches:wrench_axis_augment"
   }
 }

@@ -51,9 +51,9 @@ public class ExtendedWrenches {
         try {
             if (ModList.get().isLoaded("everycomp")) {
                 ModCompat.init();
-                LOGGER.info("Every Compat found, starting compatibility");
+                LOGGER.debug("Every Compat found, starting compatibility");
             } else {
-                LOGGER.info("Every Compat is not installed");
+                LOGGER.debug("Every Compat is not installed");
             }
         } catch (Exception e) {
             LOGGER.error("Failed to start EveryComp module", e);

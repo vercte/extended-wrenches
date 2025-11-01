@@ -1,11 +1,10 @@
 {
-	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
 		"3": "extendedwrenches:item/extended_wrench/head_materials/gold",
 		"4": "extendedwrenches:item/extended_wrench/handle_materials/dark_oak",
-		"5": "extendedwrenches:item/extended_wrench/base",
+		"5": "create:item/wrench",
 		"6": "extendedwrenches:item/extended_wrench/axis_materials/andesite",
 		"particle": "extendedwrenches:item/extended_wrench/base"
 	},

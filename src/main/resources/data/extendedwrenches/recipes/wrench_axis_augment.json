@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "...",
+    ".t.",
+    "..."
+  ],
+  "key": {
+    ".": {
+      "tag": "forge:nuggets/zinc"
+    },
+    "t": {
+      "tag": "minecraft:trim_templates"
+    }
+  },
+  "result": {
+    "item": "extendedwrenches:wrench_axis_augment"
+  }
+}

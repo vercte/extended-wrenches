@@ -1,12 +1,11 @@
 {
-	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"3": "extendedwrenches:item/extended_wrench/head_materials/asurine",
-		"4": "extendedwrenches:item/extended_wrench/handle_materials/asurine",
+		"3": "extendedwrenches:item/extended_wrench/head_materials/gold",
+		"4": "extendedwrenches:item/extended_wrench/handle_materials/dark_oak",
 		"5": "extendedwrenches:item/extended_wrench/base",
-		"6": "extendedwrenches:item/extended_wrench/axis_materials/asurine",
+		"6": "extendedwrenches:item/extended_wrench/axis_materials/andesite",
 		"particle": "extendedwrenches:item/extended_wrench/base"
 	},
 	"elements": [
@@ -20,6 +19,24 @@
 			}
 		},
 		{
+			"name": "wood in bottom clamp side extension",
+			"from": [8, 12, 7],
+			"to": [10, 12.5, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 10.5, 7]},
+			"faces": {
+				"down": {"uv": [8.5, 0, 6.5, 1], "texture": "#4"}
+			}
+		},
+		{
+			"name": "wood in bottom clamp front extension",
+			"from": [10, 12, 7.25],
+			"to": [10.5, 12.5, 8.75],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 10.5, 7]},
+			"faces": {
+				"down": {"uv": [7, 0, 6.5, 1], "texture": "#4"}
+			}
+		},
+		{
 			"name": "wood in top clamp",
 			"from": [7, 14.5, 7.5],
 			"to": [10, 15, 8.5],
@@ -27,6 +44,25 @@
 			"faces": {
 				"west": {"uv": [8.5, 3, 9.5, 3.5], "texture": "#4"},
 				"up": {"uv": [9.5, 3, 6.5, 2], "texture": "#4"}
+			}
+		},
+		{
+			"name": "wood in top clamp side extension",
+			"from": [7, 14.5, 7.25],
+			"to": [10, 15, 8.75],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 13, 7]},
+			"faces": {
+				"west": {"uv": [8.5, 3, 9.5, 3.5], "texture": "#4"},
+				"up": {"uv": [9.5, 3, 6.5, 2], "texture": "#4"}
+			}
+		},
+		{
+			"name": "wood in top clamp front extension",
+			"from": [10, 14.5, 7.25],
+			"to": [10.75, 15, 8.75],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 13, 7]},
+			"faces": {
+				"up": {"uv": [7, 3, 6.5, 2], "texture": "#4"}
 			}
 		},
 		{
@@ -85,8 +121,8 @@
 		},
 		{
 			"name": "bottom clamp",
-			"from": [8, 12, 7],
-			"to": [11, 13, 9],
+			"from": [7.98, 11.98, 6.98],
+			"to": [11.02, 13.02, 9.02],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 11, 7]},
 			"faces": {
 				"north": {"uv": [2, 10, 5, 11], "texture": "#3"},
@@ -99,8 +135,8 @@
 		},
 		{
 			"name": "top clamp",
-			"from": [7, 14, 7],
-			"to": [11, 15, 9],
+			"from": [6.98, 13.98, 6.98],
+			"to": [11.02, 15.02, 9.02],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 11, 7]},
 			"faces": {
 				"north": {"uv": [2, 2, 6, 3], "texture": "#3"},
@@ -196,16 +232,16 @@
 					"name": "wood",
 					"origin": [7, 10.5, 7],
 					"color": 0,
-					"children": [0, 1, 2, 3, 4, 5]
+					"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 				},
 				{
 					"name": "head",
 					"origin": [8.5, 11, 7],
 					"color": 0,
-					"children": [6, 7, 8]
+					"children": [10, 11, 12]
 				},
-				9,
-				10
+				13,
+				14
 			]
 		}
 	]

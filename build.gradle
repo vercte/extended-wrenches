@@ -33,7 +33,6 @@ repositories {
 
 boolean dev = System.getenv('RELEASE') == null || System.getenv('RELEASE').aquals('false')
 ext.buildNumber = System.getenv('BUILD_NUMBER')
-String gitHash = "${calculateGitHash() + (hasUnstaged() ? "-modified" : "")}"
 
 base {
     archivesName = "${mod_id}-${minecraft_version}"

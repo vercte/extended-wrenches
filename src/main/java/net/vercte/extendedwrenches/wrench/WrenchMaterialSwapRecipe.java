@@ -76,11 +76,15 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
     @Override
     @NotNull
     public ItemStack assemble(@NotNull Container container, @NotNull RegistryAccess access) {
+        return applyTransformation(container.getItem(1), access);
+    }
+
+    public ItemStack applyTransformation(ItemStack input, @NotNull RegistryAccess access) {
         Registry<WrenchMaterial> materials = access.registryOrThrow(ExtendedWrenchesData.WRENCH_MATERIAL);
         Optional<WrenchMaterial> optMaterial = materials.getOptional(materialLocation);
 
         if(optMaterial.isEmpty()) return ItemStack.EMPTY;
-        ItemStack wrench = ExtendedWrenchItem.convertWrench(container.getItem(1));
+        ItemStack wrench = ExtendedWrenchItem.convertWrench(input);
         WrenchMaterial material = optMaterial.get();
         ResourceLocation materialLocation = materials.getKey(material);
 

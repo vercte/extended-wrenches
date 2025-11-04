@@ -9,7 +9,7 @@ plugins {
 group = mod_group_id
 version = mod_version
 
-boolean dev = System.getenv('RELEASE') == null || System.getenv('RELEASE').aquals('false')
+boolean dev = System.getenv('RELEASE') == null || System.getenv('RELEASE').equals('false')
 ext.buildNumber = System.getenv('BUILD_NUMBER')
 String gitHash = "${calculateGitHash() + (hasUnstaged() ? "-modified" : "")}"
 

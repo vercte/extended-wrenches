@@ -55,11 +55,7 @@ public class ExtendedWrenchesData {
         );
     }
 
-    public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        PackOutput output = generator.getPackOutput();
-        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-
+    public static void gatherRegistrateData(GatherDataEvent event) {
         ExtendedWrenches.REGISTRATE.addDataGenerator(ProviderType.LANG, lang -> {
             String interfacePath = "assets/extendedwrenches/lang/default/interface.json";
             JsonElement jsonElement = FilesHelper.loadJsonResource(interfacePath);
@@ -74,6 +70,12 @@ public class ExtendedWrenchesData {
                 lang.add(key, value);
             }
         });
+    }
+
+    public static void gatherData(GatherDataEvent event) {
+        DataGenerator generator = event.getGenerator();
+        PackOutput output = generator.getPackOutput();
+        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         if(event.includeServer()) {
             generator.addProvider(true, new ExtendedEntriesProvider(output, lookupProvider));

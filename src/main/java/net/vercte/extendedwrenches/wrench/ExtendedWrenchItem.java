@@ -24,13 +24,11 @@ public class ExtendedWrenchItem extends WrenchItem {
         super(properties);
     }
 
-    private static final String TAG_DISPLAY = "display";
+    public static final String TAG_DISPLAY = "display";
+    public static final String TAG_MATERIALS = "materials";
+    public static final String TAG_MATERIAL_LOCATION = "location";
+
     private static final String TAG_GRIP_COLOR = "grip_color";
-
-    private static final String TAG_MATERIALS = "materials";
-    private static final String TAG_MATERIAL_LOCATION = "location";
-    private static final String TAG_MATERIAL_TEXTURE = "texture";
-
     private static final int DEFAULT_GRIP_COLOR = 0xc74f46;
 
     public static boolean hasCustomColor(ItemStack stack) {
@@ -105,7 +103,6 @@ public class ExtendedWrenchItem extends WrenchItem {
         CompoundTag materials = display.getCompound(TAG_MATERIALS);
         CompoundTag materialData = materials.getCompound(part.getSerializedName());
         materialData.putString(TAG_MATERIAL_LOCATION, location.toString());
-        materialData.putString(TAG_MATERIAL_TEXTURE, material.texture().toString());
         materials.put(part.getSerializedName(), materialData);
         display.put(TAG_MATERIALS, materials);
         return stack;
@@ -128,14 +125,6 @@ public class ExtendedWrenchItem extends WrenchItem {
         }
 
         return materialLocation.equals(material.toString());
-    }
-
-    @Nullable
-    public static ResourceLocation getMaterialTexture(ItemStack stack, WrenchPart part) {
-        CompoundTag display = stack.getOrCreateTagElement(TAG_DISPLAY);
-        CompoundTag materials = display.getCompound(TAG_MATERIALS);
-        String texture = materials.getCompound(part.getSerializedName()).getString(TAG_MATERIAL_TEXTURE);
-        return !texture.isEmpty() ? new ResourceLocation(texture) : null;
     }
 
     public static ItemStack convertWrench(ItemStack original) {

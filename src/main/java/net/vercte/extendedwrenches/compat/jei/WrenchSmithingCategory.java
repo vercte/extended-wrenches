@@ -6,6 +6,7 @@ import com.simibubi.create.compat.jei.DoubleItemIcon;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.ingredients.IIngredientRenderer;
@@ -17,6 +18,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Blocks;
@@ -100,6 +102,14 @@ public class WrenchSmithingCategory implements IRecipeCategory<WrenchMaterialSwa
             guiGraphics.pose().popPose();
 
             RenderSystem.disableBlend();
+        }
+
+        @Override
+        public void getTooltip(ITooltipBuilder tooltip, ItemStack ingredient, @NotNull TooltipFlag tooltipFlag) {
+            Minecraft minecraft = Minecraft.getInstance();
+            Player player = minecraft.player;
+            List<Component> components = ingredient.getTooltipLines(player, tooltipFlag);
+            tooltip.addAll(components);
         }
 
         @Override

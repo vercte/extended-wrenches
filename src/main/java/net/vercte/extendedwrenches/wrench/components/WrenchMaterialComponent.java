@@ -30,7 +30,7 @@ public record WrenchMaterialComponent(Map<WrenchPart, Holder<WrenchMaterial>> pa
                     HashMap::new,
                     ByteBufCodecs.idMapper(WrenchPart.BY_ID, WrenchPart::getId),
                     ByteBufCodecs.holderRegistry(ExtendedWrenchesData.WRENCH_MATERIAL),
-                    3
+                    4
             ), WrenchMaterialComponent::parts,
             WrenchMaterialComponent::new
     );

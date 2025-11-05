@@ -8,6 +8,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.level.block.Blocks;
@@ -47,9 +48,9 @@ public class ExtendedJEI implements IModPlugin {
         assert level != null;
 
         List<WrenchMaterialSwapRecipe> recipes = new ArrayList<>();
-        Stream<SmithingRecipe> smithingRecipeStream = level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING).stream();
+        Stream<RecipeHolder<SmithingRecipe>> smithingRecipeStream = level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING).stream();
         smithingRecipeStream.forEach(r -> {
-            if(r instanceof WrenchMaterialSwapRecipe sr) recipes.add(sr);
+            if(r.value() instanceof WrenchMaterialSwapRecipe sr) recipes.add(sr);
         });
 
         return recipes;

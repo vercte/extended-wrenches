@@ -95,6 +95,14 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         return ExtendedWrenchItem.swapMaterial(wrench, this.part, optMaterial.get());
     }
 
+    public ItemStack applyTransformation(ItemStack original, @NotNull HolderLookup<WrenchMaterial> materials) {
+        ResourceKey<WrenchMaterial> materialKey = ResourceKey.create(ExtendedWrenchesData.WRENCH_MATERIAL, materialLocation);
+        Optional<Holder.Reference<WrenchMaterial>> optMaterial = materials.get(materialKey);
+
+        if(optMaterial.isEmpty()) return ItemStack.EMPTY;
+        return ExtendedWrenchItem.swapMaterial(original, this.part, optMaterial.get());
+    }
+
     @Override
     @NotNull
     public ItemStack getResultItem(@NotNull HolderLookup.Provider provider) {

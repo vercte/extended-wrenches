@@ -19,11 +19,13 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Blocks;
 import net.vercte.extendedwrenches.ExtendedItems;
 import net.vercte.extendedwrenches.ExtendedWrenches;
+import net.vercte.extendedwrenches.ExtendedWrenchesData;
 import net.vercte.extendedwrenches.wrench.WrenchMaterialSwapRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -77,7 +79,7 @@ public class WrenchSmithingCategory implements IRecipeCategory<WrenchMaterialSwa
         ClientLevel level = minecraft.level;
         if(level == null) return;
 
-        ItemStack wrench = recipe.applyTransformation(ExtendedItems.WRENCH.asStack(), level.registryAccess());
+        ItemStack wrench = recipe.applyTransformation(ExtendedItems.WRENCH.asStack(), level.holderLookup(ExtendedWrenchesData.WRENCH_MATERIAL));
         outputSlot.addItemStack(wrench);
     }
 
@@ -105,11 +107,21 @@ public class WrenchSmithingCategory implements IRecipeCategory<WrenchMaterialSwa
         }
 
         @Override
-        public void getTooltip(ITooltipBuilder tooltip, ItemStack ingredient, @NotNull TooltipFlag tooltipFlag) {
+        @NonnullDefault
+        public List<Component> getTooltip(ItemStack ingredient, TooltipFlag tooltipFlag) {
             Minecraft minecraft = Minecraft.getInstance();
             Player player = minecraft.player;
-            List<Component> components = ingredient.getTooltipLines(player, tooltipFlag);
-            tooltip.addAll(components);
+            Item.TooltipContext tooltipContext = Item.TooltipContext.of(minecraft.level);
+            return ingredient.getTooltipLines(tooltipContext, player, tooltipFlag);
+        }
+
+        @Override
+        public void getTooltip(ITooltipBuilder tooltip, ItemStack ingredient, TooltipFlag tooltipFlag) {
+            Minecraft minecraft = Minecraft.getInstance();
+            Player player = minecraft.player;
+            Item.TooltipContext tooltipContext = Item.TooltipContext.of(minecraft.level);
+            List<Component> tooltipLines = ingredient.getTooltipLines(tooltipContext, player, tooltipFlag);
+            tooltip.addAll(tooltipLines);
         }
 
         @Override
@@ -120,12 +132,6 @@ public class WrenchSmithingCategory implements IRecipeCategory<WrenchMaterialSwa
         @Override
         public int getHeight() {
             return 24;
-        }
-
-        @Override
-        @NonnullDefault
-        public List<Component> getTooltip(ItemStack ingredient, TooltipFlag tooltipFlag) {
-            return List.of();
         }
     }
 }

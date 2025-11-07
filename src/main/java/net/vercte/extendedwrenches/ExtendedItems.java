@@ -4,6 +4,7 @@ import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -16,7 +17,7 @@ public class ExtendedItems {
             .properties(p -> p.stacksTo(1))
             .model(AssetLookup.itemModelWithPartials())
             .lang(w -> "item.extendedwrenches.nope_fake_wrench_name_i_hate_you_registrate", "Wrench")
-            .tag(Tags.Items.TOOLS_WRENCH)
+            .tag(Tags.Items.TOOLS_WRENCH, ItemTags.DYEABLE)
             .register();
 
     public static final ItemEntry<Item> WRENCH_HEAD_AUGMENT = REGISTRATE.item("wrench_head_augment", Item::new)

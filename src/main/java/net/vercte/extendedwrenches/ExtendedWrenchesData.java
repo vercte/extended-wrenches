@@ -2,6 +2,7 @@ package net.vercte.extendedwrenches;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
 import net.minecraft.core.HolderLookup;
@@ -11,6 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
@@ -69,6 +71,10 @@ public class ExtendedWrenchesData {
                 String value = entry.getValue().getAsString();
                 lang.add(key, value);
             }
+        });
+
+        ExtendedWrenches.REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, tags -> {
+            tags.addTag(ItemTags.DYEABLE).add(AllItems.WRENCH.get());
         });
     }
 

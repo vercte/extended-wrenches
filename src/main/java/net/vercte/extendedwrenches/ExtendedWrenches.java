@@ -6,16 +6,21 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.createmod.catnip.lang.FontHelper;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.vercte.extendedwrenches.compat.ModCompat;
+import net.vercte.extendedwrenches.wrench.ExtendedWrenchItem;
 import org.slf4j.Logger;
 
 @Mod(ExtendedWrenches.ID)
@@ -34,13 +39,31 @@ public class ExtendedWrenches {
         ExtendedItems.init();
         everyCompatModule();
 
+        modEventBus.addListener(ExtendedWrenches::initExtra);
         modEventBus.addListener(ExtendedItems::addToCreative);
         modEventBus.addListener(ExtendedWrenchesData::registerDatapackRegistries);
         modEventBus.addListener(EventPriority.LOWEST, ExtendedWrenchesData::gatherData);
 
         ExtendedWrenchesRecipeSerializers.register(modEventBus);
         REGISTRATE.registerEventListeners(modEventBus);
-        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    public static void initExtra(final FMLCommonSetupEvent event) {
+        CauldronInteraction.WATER.put(ExtendedItems.WRENCH.get(), (state, level, pos, player, hand, stack) -> {
+            if (!stack.is(ExtendedItems.WRENCH.get())) {
+                return InteractionResult.PASS;
+            } else if (!ExtendedWrenchItem.hasCustomColor(stack)) {
+                return InteractionResult.PASS;
+            } else {
+                if (!level.isClientSide) {
+                    ExtendedWrenchItem.clearColor(stack);
+                    player.awardStat(Stats.CLEAN_ARMOR);
+                    LayeredCauldronBlock.lowerFillLevel(state, level, pos);
+                }
+
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            }
+        });
     }
 
     public static ResourceLocation asResource(String path) {

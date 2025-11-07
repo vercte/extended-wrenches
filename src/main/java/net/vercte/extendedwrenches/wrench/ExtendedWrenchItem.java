@@ -45,6 +45,11 @@ public class ExtendedWrenchItem extends WrenchItem {
         stack.getOrCreateTagElement(TAG_DISPLAY).putInt(TAG_GRIP_COLOR, color);
     }
 
+    public static void clearColor(ItemStack stack) {
+        CompoundTag display = stack.getTagElement(TAG_DISPLAY);
+        if(display != null) display.remove(TAG_GRIP_COLOR);
+    }
+
     public static ItemStack dyeWrench(ItemStack stack, List<DyeItem> dyes) {
         ItemStack copiedWrench = ItemStack.EMPTY;
         int[] color = new int[3];

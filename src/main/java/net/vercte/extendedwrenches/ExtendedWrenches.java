@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.createmod.catnip.lang.FontHelper;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,6 +14,7 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.vercte.extendedwrenches.compat.ModCompat;
 import org.slf4j.Logger;
 
@@ -31,6 +33,7 @@ public class ExtendedWrenches {
         ExtendedWrenchesData.register(modEventBus);
         everyCompatModule();
 
+        modEventBus.addListener(ExtendedWrenches::initExtra);
         modEventBus.addListener(ExtendedItems::addToCreative);
         modEventBus.addListener(ExtendedWrenchesData::registerDatapackRegistries);
         modEventBus.addListener(EventPriority.HIGHEST, ExtendedWrenchesData::gatherRegistrateData);
@@ -38,6 +41,10 @@ public class ExtendedWrenches {
 
         ExtendedWrenchesRecipeSerializers.register(modEventBus);
         REGISTRATE.registerEventListeners(modEventBus);
+    }
+
+    public static void initExtra(final FMLCommonSetupEvent event) {
+        CauldronInteraction.WATER.map().put(ExtendedItems.WRENCH.get(), CauldronInteraction.DYED_ITEM);
     }
 
     public static ResourceLocation asResource(String path) {

@@ -103,7 +103,7 @@ public class ExtendedWrenchItem extends WrenchItem {
         }
     }
 
-    public static ItemStack swapMaterial(ItemStack stack, ResourceLocation location, WrenchMaterial material, WrenchPart part) {
+    public static ItemStack swapMaterial(ItemStack stack, ResourceLocation location, WrenchPart part) {
         CompoundTag display = stack.getOrCreateTagElement(TAG_DISPLAY);
         CompoundTag materials = display.getCompound(TAG_MATERIALS);
         CompoundTag materialData = materials.getCompound(part.getSerializedName());

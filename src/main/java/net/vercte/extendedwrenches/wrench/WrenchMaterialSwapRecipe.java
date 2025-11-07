@@ -89,7 +89,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
         ResourceLocation materialLocation = materials.getKey(material);
 
         assert materialLocation != null;
-        return ExtendedWrenchItem.swapMaterial(wrench.copy(), materialLocation, material, this.part);
+        return ExtendedWrenchItem.swapMaterial(wrench.copy(), materialLocation, this.part);
     }
 
     @Override

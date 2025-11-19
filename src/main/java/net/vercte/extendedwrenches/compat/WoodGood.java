@@ -38,9 +38,9 @@ public class WoodGood extends SimpleModule {
                 // ExtendedWrenches.LOGGER.info("woodType {}", woodType.id);
                 try (
                         TextureImage cogTexture = TextureImage.open(manager,
-                                ResourceLocation.fromNamespaceAndPath(ExtendedWrenches.ID, "item/extended_wrench/cog_materials/oak"));
+                                ExtendedWrenches.asResource("item/extended_wrench/cog_materials/oak"));
                         TextureImage handleTexture = TextureImage.open(manager,
-                                ResourceLocation.fromNamespaceAndPath(ExtendedWrenches.ID, "item/extended_wrench/handle_materials/oak"));
+                                ExtendedWrenches.asResource("item/extended_wrench/handle_materials/oak"));
                         TextureImage plankTexture = TextureImage.open(manager, RPUtils.findFirstBlockTextureLocation(manager, woodType.planks))
                 ) {
                     Respriter cogRespriter = Respriter.of(cogTexture);
@@ -74,7 +74,7 @@ public class WoodGood extends SimpleModule {
                 JsonObject cogMaterial = new JsonObject();
                 cogMaterial.add("part", new JsonPrimitive("cog"));
                 cogMaterial.add("texture", new JsonPrimitive(getCogTexturePath(woodType).toString()));
-                sink.addJson(ResourceLocation.fromNamespaceAndPath(EveryCompat.MOD_ID,
+                sink.addJson(new ResourceLocation(EveryCompat.MOD_ID,
                         "extendedwrenches/wrench_material/"+ woodType.getAppendableId()+"_cog"),
                         cogMaterial, ResType.JSON);
 
@@ -89,7 +89,7 @@ public class WoodGood extends SimpleModule {
                 JsonObject cogTemplateItem = new JsonObject();
                 cogTemplateItem.add("item", new JsonPrimitive(BuiltInRegistries.ITEM.getKey(ExtendedItems.WRENCH_COG_AUGMENT.get()).toString()));
                 cogRecipe.add("template", cogTemplateItem);
-                sink.addJson(ResourceLocation.fromNamespaceAndPath(EveryCompat.MOD_ID,
+                sink.addJson(new ResourceLocation(EveryCompat.MOD_ID,
                         "wrench/cog/"+ woodType.getAppendableId()+"_cog_swap"),
                         cogRecipe, ResType.RECIPES);
 
@@ -98,7 +98,7 @@ public class WoodGood extends SimpleModule {
                 JsonObject handleMaterial = new JsonObject();
                 handleMaterial.add("part", new JsonPrimitive("handle"));
                 handleMaterial.add("texture", new JsonPrimitive(getHandleTexturePath(woodType).toString()));
-                sink.addJson(ResourceLocation.fromNamespaceAndPath(EveryCompat.MOD_ID,
+                sink.addJson(new ResourceLocation(EveryCompat.MOD_ID,
                                 "extendedwrenches/wrench_material/"+ woodType.getAppendableId()+"_handle"),
                         handleMaterial, ResType.JSON);
 
@@ -110,7 +110,7 @@ public class WoodGood extends SimpleModule {
                 JsonObject handleTemplateItem = new JsonObject();
                 handleTemplateItem.add("item", new JsonPrimitive(BuiltInRegistries.ITEM.getKey(ExtendedItems.WRENCH_HANDLE_AUGMENT.get()).toString()));
                 handleRecipe.add("template", handleTemplateItem);
-                sink.addJson(ResourceLocation.fromNamespaceAndPath(EveryCompat.MOD_ID,
+                sink.addJson(new ResourceLocation(EveryCompat.MOD_ID,
                                 "wrench/handle/"+ woodType.getAppendableId()+"_handle_swap"),
                         handleRecipe, ResType.RECIPES);
             }
@@ -118,12 +118,12 @@ public class WoodGood extends SimpleModule {
     }
 
     private ResourceLocation getCogTexturePath(WoodType woodType) {
-        return ResourceLocation.fromNamespaceAndPath(EveryCompat.MOD_ID,
+        return new ResourceLocation(EveryCompat.MOD_ID,
                 "item/extended_wrench/cog_materials/"+ woodType.getAppendableId());
     }
 
     private ResourceLocation getHandleTexturePath(WoodType woodType) {
-        return ResourceLocation.fromNamespaceAndPath(EveryCompat.MOD_ID,
+        return new ResourceLocation(EveryCompat.MOD_ID,
                 "item/extended_wrench/handle_materials/"+ woodType.getAppendableId());
     }
 }

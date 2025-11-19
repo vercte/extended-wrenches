@@ -1,7 +1,7 @@
 {
   "type": "extendedwrenches:wrench_material_swap",
   "addition": {
-    "tag": "forge:gems/amethyst"
+    "tag": "c:amethyst"
   },
   "material": "extendedwrenches:amethyst_head",
   "part": "head",

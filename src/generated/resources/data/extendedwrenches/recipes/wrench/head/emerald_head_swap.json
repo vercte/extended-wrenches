@@ -1,7 +1,7 @@
 {
   "type": "extendedwrenches:wrench_material_swap",
   "addition": {
-    "tag": "forge:gems/emerald"
+    "tag": "c:emeralds"
   },
   "material": "extendedwrenches:emerald_head",
   "part": "head",

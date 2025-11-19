@@ -6,25 +6,22 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.createmod.catnip.lang.FontHelper;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.vercte.extendedwrenches.compat.ModCompat;
 import net.vercte.extendedwrenches.wrench.ExtendedWrenchItem;
 import org.slf4j.Logger;
 
-@Mod(ExtendedWrenches.ID)
-public class ExtendedWrenches {
+public class ExtendedWrenches implements ModInitializer {
     public static final String ID = "extendedwrenches";
     public static final Logger LOGGER = LogUtils.getLogger();
 
@@ -33,22 +30,20 @@ public class ExtendedWrenches {
             .setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
                     .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
 
-    public ExtendedWrenches() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+    public void onInitialize() {
         ExtendedItems.init();
+        ExtendedWrenchesRecipeSerializers.init();
         everyCompatModule();
 
-        modEventBus.addListener(ExtendedWrenches::initExtra);
-        modEventBus.addListener(ExtendedItems::addToCreative);
-        modEventBus.addListener(ExtendedWrenchesData::registerDatapackRegistries);
-        modEventBus.addListener(EventPriority.LOWEST, ExtendedWrenchesData::gatherData);
+        REGISTRATE.register();
 
-        ExtendedWrenchesRecipeSerializers.register(modEventBus);
-        REGISTRATE.registerEventListeners(modEventBus);
+        ExtendedWrenchesData.registerDatapackRegistries();
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(ExtendedItems::addToCreative);
+
+        initExtra();
     }
 
-    public static void initExtra(final FMLCommonSetupEvent event) {
+    public static void initExtra() {
         CauldronInteraction.WATER.put(ExtendedItems.WRENCH.get(), (state, level, pos, player, hand, stack) -> {
             if (!stack.is(ExtendedItems.WRENCH.get())) {
                 return InteractionResult.PASS;
@@ -72,7 +67,7 @@ public class ExtendedWrenches {
 
     private static void everyCompatModule() {
         try {
-            if (ModList.get().isLoaded("everycomp")) {
+            if (FabricLoader.getInstance().isModLoaded("everycomp")) {
                 ModCompat.init();
                 LOGGER.debug("Every Compat found, starting compatibility");
             } else {

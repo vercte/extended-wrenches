@@ -58,11 +58,36 @@ dependencies {
     modCompileOnly("curse.maven:every-compat-628539:7223409")
 }
 
+loom {
+    runs {
+        create("datagen") {
+            client()
+
+            name = "Minecraft Data"
+            vmArg("-Dfabric-api.datagen")
+            vmArg("-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}")
+            vmArg("-Dfabric-api.datagen.modid=extendedwrenches")
+            vmArg("-Dporting_lib.datagen.existing_resources=${file("src/main/resources")}")
+
+            environmentVariable("DATAGEN", "TRUE")
+        }
+    }
+}
+
 processResources {
     inputs.property "version", project.version
+    inputs.property "create_version_range", create_version_range
 
     filesMatching("fabric.mod.json") {
-        expand "version": inputs.properties.version
+        expand "version": inputs.properties.version,
+                "create_version_range": inputs.properties.create_version_range
+    }
+}
+
+sourceSets.main {
+    resources {
+        srcDir("src/generated/resources")
+        exclude(".cache/")
     }
 }
 
@@ -84,6 +109,13 @@ jar {
         rename { "${it}_${inputs.properties.archivesName}"}
     }
 }
+
+//fabricApi {
+//    configureDataGeneration {
+//        modId = "extendedwrenches"
+//        client = true
+//    }
+//}
 
 String calculateGitHash() {
     try {

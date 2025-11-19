@@ -4,41 +4,46 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
-import net.minecraft.core.HolderLookup;
+import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
+import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.resources.ResourceKey;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.registries.DataPackRegistryEvent;
 import net.vercte.extendedwrenches.datagen.ExtendedEntriesProvider;
 import net.vercte.extendedwrenches.datagen.ExtendedWrenchSwapRecipeProvider;
 import net.vercte.extendedwrenches.wrench.WrenchMaterial;
 
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 @SuppressWarnings("SameParameterValue")
-public class ExtendedWrenchesData {
+public class ExtendedWrenchesData implements DataGeneratorEntrypoint {
     public static final ResourceKey<Registry<WrenchMaterial>> WRENCH_MATERIAL = key("wrench_material");
 
     private static <T> ResourceKey<Registry<T>> key(String name) {
         return ResourceKey.createRegistryKey(ExtendedWrenches.asResource(name));
     }
 
-    public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(
-                WRENCH_MATERIAL,
-                WrenchMaterial.CODEC,
-                WrenchMaterial.CODEC
-        );
+    public static void registerDatapackRegistries() {
+        DynamicRegistries.registerSynced(WRENCH_MATERIAL, WrenchMaterial.CODEC);
     }
 
-    public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        PackOutput output = generator.getPackOutput();
-        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+    @Override
+    public void buildRegistry(RegistrySetBuilder builder) {
+        ExtendedEntriesProvider.addBootstraps(builder);
+    }
 
+    @Override
+    public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+        ExistingFileHelper helper = ExistingFileHelper.withResourcesFromArg();
+        FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+        ExtendedWrenches.REGISTRATE.setupDatagen(pack, helper);
+
+        gatherData(pack);
+    }
+
+    public static void gatherData(FabricDataGenerator.Pack pack) {
         ExtendedWrenches.REGISTRATE.addDataGenerator(ProviderType.LANG, lang -> {
             String interfacePath = "assets/extendedwrenches/lang/default/interface.json";
             JsonElement jsonElement = FilesHelper.loadJsonResource(interfacePath);
@@ -54,9 +59,7 @@ public class ExtendedWrenchesData {
             }
         });
 
-        if(event.includeServer()) {
-            generator.addProvider(true, new ExtendedEntriesProvider(output, lookupProvider));
-            generator.addProvider(true, new ExtendedWrenchSwapRecipeProvider(output));
-        }
+        pack.addProvider(ExtendedEntriesProvider::new);
+        pack.addProvider(ExtendedWrenchSwapRecipeProvider::new);
     }
 }

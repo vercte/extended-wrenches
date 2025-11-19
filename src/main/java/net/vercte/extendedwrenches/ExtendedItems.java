@@ -5,9 +5,10 @@ import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.world.item.*;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.vercte.extendedwrenches.wrench.ExtendedWrenchItem;
+import net.vercte.extendedwrenches.wrench.ExtendedWrenchItemRenderer;
 
 public class ExtendedItems {
     private static final CreateRegistrate REGISTRATE = ExtendedWrenches.REGISTRATE;
@@ -16,6 +17,7 @@ public class ExtendedItems {
             .properties(p -> p.stacksTo(1))
             .model(AssetLookup.itemModelWithPartials())
             .lang(w -> "item.extendedwrenches.nope_fake_wrench_name_i_hate_you_registrate", "Wrench")
+            .transform(CreateRegistrate.customRenderedItem(() -> ExtendedWrenchItemRenderer::new))
             .tag(AllTags.AllItemTags.WRENCH.tag)
             .register();
 
@@ -39,13 +41,14 @@ public class ExtendedItems {
             .lang("Incomplete Wrench Head Augment")
             .register();
 
-    public static void addToCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.getEntries().putAfter(new ItemStack(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE), WRENCH_HANDLE_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            event.getEntries().putAfter(WRENCH_HANDLE_AUGMENT.asStack(), WRENCH_HEAD_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            event.getEntries().putAfter(WRENCH_HEAD_AUGMENT.asStack(), WRENCH_COG_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            event.getEntries().putAfter(WRENCH_COG_AUGMENT.asStack(), WRENCH_AXIS_AUGMENT.asStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        }
+    public static void addToCreative(FabricItemGroupEntries entries) {
+        entries.addAfter(
+                Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                WRENCH_HANDLE_AUGMENT,
+                WRENCH_HEAD_AUGMENT,
+                WRENCH_COG_AUGMENT,
+                WRENCH_AXIS_AUGMENT
+        );
     }
 
     public static void init() {}

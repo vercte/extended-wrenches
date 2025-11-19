@@ -104,14 +104,14 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
 
     @Override
     @NotNull
-    public RecipeSerializer<?> getSerializer() { return ExtendedWrenchesRecipeSerializers.WRENCH_MATERIAL_SWAP.get(); }
+    public RecipeSerializer<?> getSerializer() { return ExtendedWrenchesRecipeSerializers.WRENCH_MATERIAL_SWAP; }
 
     @NonnullDefault
     public static class Serializer implements RecipeSerializer<WrenchMaterialSwapRecipe> {
         public WrenchMaterialSwapRecipe fromJson(ResourceLocation location, JsonObject json) {
             Ingredient base = Ingredient.fromJson(GsonHelper.getNonNull(json, "template"));
             Ingredient addition = Ingredient.fromJson(GsonHelper.getNonNull(json, "addition"));
-            ResourceLocation materialLocation = ResourceLocation.parse(GsonHelper.getAsString(json, "material"));
+            ResourceLocation materialLocation = ResourceLocation.tryParse(GsonHelper.getAsString(json, "material"));
             WrenchPart part = WrenchPart.getFromString(GsonHelper.getAsString(json, "part"));
             return new WrenchMaterialSwapRecipe(location, materialLocation, base, addition, part);
         }
@@ -189,7 +189,7 @@ public class WrenchMaterialSwapRecipe implements SmithingRecipe {
 
         @Override
         @NotNull
-        public RecipeSerializer<?> getType() { return ExtendedWrenchesRecipeSerializers.WRENCH_MATERIAL_SWAP.get(); }
+        public RecipeSerializer<?> getType() { return ExtendedWrenchesRecipeSerializers.WRENCH_MATERIAL_SWAP; }
 
         @Override
         public JsonObject serializeAdvancement() { return null; }

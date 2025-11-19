@@ -1,7 +1,7 @@
 {
   "type": "extendedwrenches:wrench_material_swap",
   "addition": {
-    "tag": "forge:ingots/brass"
+    "tag": "c:ingots/brass"
   },
   "material": "extendedwrenches:brass_head",
   "part": "head",

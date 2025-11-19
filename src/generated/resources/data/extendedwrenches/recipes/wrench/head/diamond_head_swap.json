@@ -1,7 +1,7 @@
 {
   "type": "extendedwrenches:wrench_material_swap",
   "addition": {
-    "tag": "forge:gems/diamond"
+    "tag": "c:diamonds"
   },
   "material": "extendedwrenches:diamond_head",
   "part": "head",

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "extendedwrenches",
+  "version": "${version}",
+  "name": "Extended Wrenches",
+  "description": "your wrench is you",
+  "authors": [
+    {
+      "name": "Vercte",
+      "contact": {
+        "homepage": "https://vercte.net"
+      }
+    }
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/extended-wrenches",
+    "sources": "https://github.com/vercte/extended-wrenches"
+  },
+  "license": "MIT",
+  "icon": "assets/extendedwrenches/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.vercte.extendedwrenches.ExtendedWrenches"
+    ],
+    "client": [
+      "net.vercte.extendedwrenches.ExtendedWrenchesClient"
+    ],
+    "fabric-datagen": [
+      "net.vercte.extendedwrenches.ExtendedWrenchesData"
+    ],
+    "jei_mod_plugin": [
+      "net.vercte.extendedwrenches.compat.jei.ExtendedJEI"
+    ]
+  },
+  "mixins": [
+    "extendedwrenches.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.17.3",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*",
+    "create": "${create_version_range}"
+  },
+  "suggests": {
+    "wood-good": "*"
+  }
+}

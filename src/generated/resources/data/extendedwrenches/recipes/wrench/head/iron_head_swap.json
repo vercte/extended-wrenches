@@ -1,7 +1,7 @@
 {
   "type": "extendedwrenches:wrench_material_swap",
   "addition": {
-    "tag": "forge:ingots/iron"
+    "tag": "c:iron_ingots"
   },
   "material": "extendedwrenches:iron_head",
   "part": "head",

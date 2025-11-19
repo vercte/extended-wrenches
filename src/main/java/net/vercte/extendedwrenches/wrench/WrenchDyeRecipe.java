@@ -85,5 +85,5 @@ public class WrenchDyeRecipe extends CustomRecipe {
     }
 
     @NotNull
-    public RecipeSerializer<?> getSerializer() { return ExtendedWrenchesRecipeSerializers.WRENCH_DYE_RECIPE.get(); }
+    public RecipeSerializer<?> getSerializer() { return ExtendedWrenchesRecipeSerializers.WRENCH_DYE_RECIPE; }
 }

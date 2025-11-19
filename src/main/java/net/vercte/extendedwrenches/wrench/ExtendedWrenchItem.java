@@ -2,22 +2,17 @@ package net.vercte.extendedwrenches.wrench;
 
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.wrench.WrenchItem;
-import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.vercte.extendedwrenches.ExtendedItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class ExtendedWrenchItem extends WrenchItem {
     public ExtendedWrenchItem(Properties properties) {
@@ -136,12 +131,6 @@ public class ExtendedWrenchItem extends WrenchItem {
         if(original.is(AllItems.WRENCH.get()))
             return ExtendedItems.WRENCH.asStack();
         return original;
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(SimpleCustomRenderer.create(this, new ExtendedWrenchItemRenderer()));
     }
 
     @Nonnull

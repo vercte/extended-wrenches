@@ -2,11 +2,11 @@ package net.vercte.extendedwrenches.mixin;
 
 import com.simibubi.create.content.equipment.wrench.WrenchItem;
 import com.tterrag.registrate.AbstractRegistrate;
+import com.tterrag.registrate.fabric.RegistryObject;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.RegistryObject;
 import net.vercte.extendedwrenches.ExtendedItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,5 +1,4 @@
-modLoader = "javafml" #mandatory
-# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+modLoader = "javafml"
 loaderVersion = "${loader_version_range}"
 license = "${mod_license}"
 issueTrackerURL="https://github.com/vercte/extended-wrenches/"
@@ -34,7 +33,7 @@ side = "BOTH"
 modId="create"
 type="required"
 versionRange="${create_version_range}"
-ordering="NONE"
+ordering="AFTER"
 side="BOTH"
 
 [[dependencies."${mod_id}"]]

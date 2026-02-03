@@ -8,7 +8,7 @@
   ],
   "key": {
     "c": {
-      "tag": "forge:plates/copper"
+      "tag": "c:copper_plates"
     },
     "t": {
       "tag": "minecraft:trim_templates"

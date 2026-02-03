@@ -8,7 +8,7 @@
   ],
   "key": {
     ".": {
-      "tag": "forge:nuggets/zinc"
+      "tag": "c:zinc_nuggets"
     },
     "t": {
       "tag": "minecraft:trim_templates"
